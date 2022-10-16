@@ -63,8 +63,14 @@ class UserService(Service, Repository):
         })
 
     # GET ALL
-    def get_all(self, page: int, per_page: int, rubric_id: int, role_id: int or None, category_ids: list[int]) -> dict:
-        users: dict = self._user_repository.get_all(page=page, per_page=per_page, rubric_id=rubric_id, role_id=role_id, category_ids=category_ids)
+    def get_all(self, page: int, per_page: int, rubric_id: int, role_id: int or None, category_ids: list[int], search: int or None) -> dict:
+        users: dict = self._user_repository.get_all(
+            page=page,
+            per_page=per_page,
+            rubric_id=rubric_id,
+            role_id=role_id,
+            category_ids=category_ids,
+            search=search)
         return self.response_ok({
             'total': users.total,
             'page': users.page,

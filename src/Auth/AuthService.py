@@ -22,8 +22,11 @@ class AuthService(Service, Repository):
         auth = self.__auth_repository.generate_tokens(user.id)
         return self.response_ok(auth)
 
-    def refresh(self) -> dict:
+    def logout(self) -> dict:
+        self.__auth_repository.delete_by_user_id(g.user_id)
+        return self.response_deleted('выход из аккаунта прошла успешно')
 
+    def refresh(self) -> dict:
         auth = self.__auth_repository.get_by_user_id(user_id=get_jwt_identity())
         if auth['refresh_token'] == request.headers['authorization'].split(' ')[1]:
 

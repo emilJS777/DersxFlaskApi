@@ -8,6 +8,10 @@ class IAuthRepo(ABC):
         pass
 
     @abstractmethod
+    def delete_by_user_id(self, user_id: int):
+        pass
+
+    @abstractmethod
     def get_by_user_id(self, user_id: int):
         pass
 

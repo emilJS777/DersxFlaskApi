@@ -29,7 +29,8 @@ class Repository:
                             'items': []}
 
         for item in page.items:
-            page_items['items'].append(Repository.get_dict_items(item))
+            if not item == '_sa_instance_state':
+                page_items['items'].append(Repository.get_dict_items(item))
 
         return page_items
 

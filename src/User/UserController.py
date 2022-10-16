@@ -43,4 +43,5 @@ class UserController(Controller):
                 rubric_id=int(self.arguments.get("rubric_id") or 0),
                 role_id=int(self.arguments.get('role_id') or 0),
                 category_ids=ast.literal_eval(self.arguments.get('category_ids')),
+                search=self.arguments.get('search') or None
             )

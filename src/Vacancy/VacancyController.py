@@ -39,6 +39,7 @@ class VacancyController(Controller):
                 search=self.arguments.get('search') or None,
                 rubric_id=self.arguments.get('rubric_id') or None,
                 category_ids=ast.literal_eval(self.arguments.get('category_ids')),
+                payment_interval_ids=ast.literal_eval(self.arguments.get('payment_interval_ids')),
                 creator_id=self.arguments.get('creator_id') or None,
                 price_start=self.arguments.get('price_start') or None,
                 price_end=self.arguments.get('price_end') or None)

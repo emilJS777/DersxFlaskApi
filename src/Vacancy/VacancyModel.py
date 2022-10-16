@@ -18,6 +18,9 @@ class Vacancy(db.Model, Model):
     rubric = relationship("Rubric")
     categories = relationship("Category", secondary="vacancy_category")
 
+    payment_interval_id = db.Column(db.Integer, db.ForeignKey('payment_interval.id'))
+    payment_interval = relationship("PaymentInterval")
+
     creation_date = db.Column(db.DateTime, default=datetime.utcnow())
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

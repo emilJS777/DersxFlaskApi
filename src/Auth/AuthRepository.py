@@ -17,6 +17,9 @@ class AuthRepository(Repository, IAuthRepo):
         auth.update_db() or auth.save_db()
         return {'access_token': auth.access_token}
 
+    def delete_by_user_id(self, user_id: int):
+        Auth.query.filter_by(user_id=user_id).delete()
+
     def get_by_user_id(self, user_id: int):
         auth: Auth = Auth.query.filter_by(user_id=user_id).first()
         return self.get_dict_items(auth)
