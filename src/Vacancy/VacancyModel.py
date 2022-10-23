@@ -21,8 +21,9 @@ class Vacancy(db.Model, Model):
     payment_interval_id = db.Column(db.Integer, db.ForeignKey('payment_interval.id'))
     payment_interval = relationship("PaymentInterval")
 
+    vacancy_offers = relationship("VacancyOffer")
+    vacancy_comments = relationship("VacancyComment")
     creation_date = db.Column(db.DateTime, default=datetime.utcnow())
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-
+    creator = relationship("User")
 

@@ -1,5 +1,4 @@
 import ast
-
 from src.__Parents.Controller import Controller
 from .VacancyService import VacancyService
 from .VacancyRepository import VacancyRepository
@@ -7,10 +6,15 @@ from src.Category.CategoryRepository import CategoryRepository
 from src.Auth.AuthMiddleware import AuthMiddleware
 from flask_expects_json import expects_json
 from .VacancyValidator import vacancy_schema
+from src.VacancyOffer.VacancyOfferRepository import VacancyOfferRepository
+from src.VacancyComment.VacancyCommentRepository import VacancyCommentRepository
 
 
 class VacancyController(Controller):
-    vacancy_service: VacancyService = VacancyService(VacancyRepository(), CategoryRepository())
+    vacancy_service: VacancyService = VacancyService(VacancyRepository(),
+                                                     CategoryRepository(),
+                                                     VacancyOfferRepository(),
+                                                     VacancyCommentRepository())
 
     @expects_json(vacancy_schema)
     @AuthMiddleware.check_authorize

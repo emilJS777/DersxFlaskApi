@@ -11,6 +11,8 @@ from .UserContact.UserContactController import UserContactController
 from .UserImage.UserImageController import UserImageController
 from .Vacancy.VacancyController import VacancyController
 from .PaymentInterval.PaymentIntervalController import PaymentIntervalController
+from .VacancyComment.VacancyCommentController import VacancyCommentController
+from .VacancyOffer.VacancyOfferController import VacancyOfferController
 
 api.add_resource(AuthController, "/auth")
 api.add_resource(UserController, "/user")
@@ -24,3 +26,5 @@ api.add_resource(UserContactController, "/user_contact")
 api.add_resource(UserImageController, "/user_image")
 api.add_resource(VacancyController, "/vacancy")
 api.add_resource(PaymentIntervalController, "/payment_interval")
+api.add_resource(VacancyCommentController, "/vacancy_comment")
+api.add_resource(VacancyOfferController, "/vacancy_offer")
