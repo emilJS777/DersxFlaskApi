@@ -36,3 +36,4 @@ CORS(app, supports_credentials=True)
 
 # FILES
 app.config["USER_IMAGE_UPLOADS"] = 'files/user_images'
+app.config["SERVICE_IMAGE_UPLOADS"] = 'files/service_images'

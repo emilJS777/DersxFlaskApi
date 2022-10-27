@@ -13,6 +13,10 @@ from .Vacancy.VacancyController import VacancyController
 from .PaymentInterval.PaymentIntervalController import PaymentIntervalController
 from .VacancyComment.VacancyCommentController import VacancyCommentController
 from .VacancyOffer.VacancyOfferController import VacancyOfferController
+from .Forum.ForumController import ForumController
+from .ForumDiscussion.ForumDiscussionController import ForumDiscussionController
+from .Service.ServiceController import ServiceController
+from .ServiceImage.ServiceImageController import ServiceImageController
 
 api.add_resource(AuthController, "/auth")
 api.add_resource(UserController, "/user")
@@ -28,3 +32,9 @@ api.add_resource(VacancyController, "/vacancy")
 api.add_resource(PaymentIntervalController, "/payment_interval")
 api.add_resource(VacancyCommentController, "/vacancy_comment")
 api.add_resource(VacancyOfferController, "/vacancy_offer")
+api.add_resource(ForumController, "/forum")
+api.add_resource(ForumDiscussionController, "/forum_discussion")
+api.add_resource(ServiceController, "/service")
+api.add_resource(ServiceImageController, "/service_image")
+
+

@@ -43,8 +43,8 @@ class VacancyRepository(IVacancyRepo, Repository):
             .filter(or_(Vacancy.title.like(f"%{search}%"), Vacancy.short_description.like(f"%{search}%")) if search else Vacancy.id.isnot(None))\
             .filter(Vacancy.rubric_id == rubric_id if rubric_id else Vacancy.id.isnot(None))\
             .filter(Vacancy.creator_id == creator_id if creator_id else Vacancy.creator_id.isnot(None))\
-            .where(Vacancy.categories.any(Category.id.in_(category_ids)))\
-            .filter(Vacancy.payment_interval_id.in_(payment_interval_ids))\
+            .where(Vacancy.categories.any(Category.id.in_(category_ids)) if category_ids else Vacancy.id.isnot(None))\
+            .filter(Vacancy.payment_interval_id.in_(payment_interval_ids) if payment_interval_ids else Vacancy.id.isnot(None))\
             .order_by(-Vacancy.creation_date)\
             .paginate(page=page, per_page=per_page)
         return vacancies

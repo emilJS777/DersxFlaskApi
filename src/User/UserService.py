@@ -59,7 +59,8 @@ class UserService(Service, Repository):
             'role_id': user.role_id,
             'image': self.get_encode_image(user.image.filename) if user.image else None,
             'gender_id': user.gender_id,
-            'gender': self.get_dict_items(user.gender)
+            'gender': self.get_dict_items(user.gender),
+            'creation_date': user.creation_date.strftime("%Y-%m-%d")
         })
 
     # GET ALL

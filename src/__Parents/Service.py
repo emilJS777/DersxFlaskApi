@@ -6,9 +6,9 @@ from src import app
 
 class Service:
     @staticmethod
-    def get_encode_image(image_path):
+    def get_encode_image(image_path: str, dir_path: str or None = None):
         # CONVERT TO BASE64 AND SEND RESPONSE
-        with open(os.path.join(app.config["USER_IMAGE_UPLOADS"], image_path), 'rb') as binary_file:
+        with open(os.path.join(dir_path or app.config["USER_IMAGE_UPLOADS"], image_path), 'rb') as binary_file:
             base64_encoded_data = base64.b64encode(binary_file.read())
 
             return {'format': image_path.split('.')[-1],

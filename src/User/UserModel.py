@@ -1,6 +1,7 @@
 from sqlalchemy.orm import relationship
 from src import db
 from src.__Parents.Model import Model
+from datetime import datetime
 
 
 class User(Model, db.Model):
@@ -19,3 +20,4 @@ class User(Model, db.Model):
     gender = relationship("Gender")
 
     skills = relationship("Skill")
+    creation_date = db.Column(db.DateTime, default=datetime.utcnow())
