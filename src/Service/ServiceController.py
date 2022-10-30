@@ -36,9 +36,11 @@ class ServiceController(Controller):
             res: dict = self.service_service.get_all(
                 page=self.page,
                 per_page=self.per_page,
+                exclude_id=self.arguments.get('exclude_id') or None,
                 search=self.arguments.get('search') or None,
                 rubric_id=self.arguments.get('rubric_id') or None,
                 category_ids=ast.literal_eval(self.arguments.get('category_ids')) if self.arguments.get('category_ids') else None,
+                payment_interval_ids=ast.literal_eval(self.arguments.get('payment_interval_ids')) if self.arguments.get('payment_interval_ids') else None,
                 creator_id=self.arguments.get('creator_id'))
         return res
 

@@ -19,6 +19,10 @@ class Service(db.Model, Model):
     categories = relationship("Category", secondary="service_category")
     image = relationship("ServiceImage", uselist=False)
 
+    payment_interval_id = db.Column(db.Integer, db.ForeignKey('payment_interval.id'))
+    payment_interval = relationship("PaymentInterval")
+    price = db.Column(db.Numeric)
+
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     creator = relationship("User")
     creation_date = db.Column(db.DateTime, default=datetime.utcnow())

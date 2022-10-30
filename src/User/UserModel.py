@@ -20,4 +20,5 @@ class User(Model, db.Model):
     gender = relationship("Gender")
 
     skills = relationship("Skill")
+    user_contacts = relationship("UserContact")
     creation_date = db.Column(db.DateTime, default=datetime.utcnow())

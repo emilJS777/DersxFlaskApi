@@ -20,5 +20,6 @@ class IServiceRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self, page: int, per_page: int, rubric_id: int or None, category_ids: list or None, search: str or None, creator_id: int or None = None):
+    def get_all(self, page: int, per_page: int, exclude_id: int or None, rubric_id: int or None, category_ids: list or None, payment_interval_ids: list or None,
+                search: str or None, creator_id: int or None = None):
         pass

@@ -13,6 +13,8 @@ class ServiceRepository(IServiceRepo):
         service.long_description = body['long_description']
         service.categories = categories
         service.rubric_id = body['rubric_id']
+        service.payment_interval_id = body['payment_interval_id']
+        service.price = body['price']
         service.creator_id = g.user_id
         service.save_db()
         return service
@@ -23,6 +25,8 @@ class ServiceRepository(IServiceRepo):
         service.long_description = body['long_description']
         service.categories = categories
         service.rubric_id = body['rubric_id']
+        service.payment_interval_id = body['payment_interval_id']
+        service.price = body['price']
         service.update_db()
 
     def delete(self, service: Service):
@@ -32,10 +36,14 @@ class ServiceRepository(IServiceRepo):
         service: Service = Service.query.filter_by(id=service_id).first()
         return service
 
-    def get_all(self, page: int, per_page: int, rubric_id: int or None, category_ids: list or None, search: str or None, creator_id: int or None = None):
+    def get_all(self, page: int, per_page: int, exclude_id: int or None, rubric_id: int or None, category_ids: list or None, payment_interval_ids: list or None,
+                search: str or None, creator_id: int or None = None):
+
         services = Service.query.filter(Service.creator_id == creator_id if creator_id else Service.id.isnot(None),
                                         Service.rubric_id == rubric_id if rubric_id else Service.id.isnot(None),
+                                        Service.id != exclude_id if exclude_id else Service.id.isnot(None),
                                         or_(Service.title.like(f"%{search}%"), Service.short_description.like(f"%{search}%")) if search else Service.id.isnot(None)) \
                                         .where(Service.categories.any(Category.id.in_(category_ids)) if category_ids else Service.id.isnot(None)) \
+                                        .filter(Service.payment_interval_id.in_(payment_interval_ids) if payment_interval_ids else Service.id.isnot(None))\
             .paginate(page=page, per_page=per_page)
         return services
