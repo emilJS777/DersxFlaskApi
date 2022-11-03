@@ -68,11 +68,12 @@ class VacancyService(Service, Repository):
             },
         })
 
-    def get_all(self, page: int, per_page: int, search: str or None, rubric_id: int or None, creator_id: int or None,
+    def get_all(self, page: int, per_page: int, exclude_id: int or None, search: str or None, rubric_id: int or None, creator_id: int or None,
                 payment_interval_ids: list[int], category_ids: list[int], price_start: float, price_end: float) -> dict:
         vacancies = self.vacancy_repository.get_all(
             page=page,
             per_page=per_page,
+            exclude_id=exclude_id,
             search=search,
             rubric_id=rubric_id,
             creator_id=creator_id,

@@ -40,6 +40,7 @@ class VacancyController(Controller):
             res: dict = self.vacancy_service.get_all(
                 page=self.page,
                 per_page=self.per_page,
+                exclude_id=self.arguments.get('exclude_id') or None,
                 search=self.arguments.get('search') or None,
                 rubric_id=self.arguments.get('rubric_id') or None,
                 category_ids=ast.literal_eval(self.arguments.get('category_ids')) if self.arguments.get('category_ids') else None,

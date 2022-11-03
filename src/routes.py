@@ -17,6 +17,8 @@ from .Forum.ForumController import ForumController
 from .ForumDiscussion.ForumDiscussionController import ForumDiscussionController
 from .Service.ServiceController import ServiceController
 from .ServiceImage.ServiceImageController import ServiceImageController
+from .Publication.PublicationController import PublicationController
+from.PublicationImage.PublicationImageController import PublicationImageController
 
 api.add_resource(AuthController, "/auth")
 api.add_resource(UserController, "/user")
@@ -36,5 +38,7 @@ api.add_resource(ForumController, "/forum")
 api.add_resource(ForumDiscussionController, "/forum_discussion")
 api.add_resource(ServiceController, "/service")
 api.add_resource(ServiceImageController, "/service_image")
+api.add_resource(PublicationController, "/publication")
+api.add_resource(PublicationImageController, "/publication_image")
 
 

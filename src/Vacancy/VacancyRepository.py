@@ -37,10 +37,11 @@ class VacancyRepository(IVacancyRepo, Repository):
         vacancy: Vacancy = Vacancy.query.filter_by(id=vacancy_id).first()
         return vacancy
 
-    def get_all(self, page: int, per_page: int, search: str or None, rubric_id: int or None, creator_id: int or None,
+    def get_all(self, page: int, per_page: int, exclude_id: int or None, search: str or None, rubric_id: int or None, creator_id: int or None,
                 payment_interval_ids: list[int], category_ids: list, price_start: float, price_end: float):
         vacancies = Vacancy.query\
             .filter(or_(Vacancy.title.like(f"%{search}%"), Vacancy.short_description.like(f"%{search}%")) if search else Vacancy.id.isnot(None))\
+            .filter(Vacancy.id != exclude_id if exclude_id else Vacancy.id.isnot(None))\
             .filter(Vacancy.rubric_id == rubric_id if rubric_id else Vacancy.id.isnot(None))\
             .filter(Vacancy.creator_id == creator_id if creator_id else Vacancy.creator_id.isnot(None))\
             .where(Vacancy.categories.any(Category.id.in_(category_ids)) if category_ids else Vacancy.id.isnot(None))\

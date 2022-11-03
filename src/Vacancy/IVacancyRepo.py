@@ -20,6 +20,6 @@ class IVacancyRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self, page: int, per_page: int, search: str or None, rubric_id: int or None, creator_id: int or None,
+    def get_all(self, page: int, per_page: int, exclude_id: int or None, search: str or None, rubric_id: int or None, creator_id: int or None,
                 payment_interval_ids: list[int], category_ids: list, price_start: float, price_end: float):
         pass
