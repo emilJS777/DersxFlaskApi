@@ -62,6 +62,7 @@ class PublicationService(Service):
             'description': publication.description,
             'image': self.get_encode_image(image_path=publication.image.filename, dir_path=app.config["PUBLICATION_IMAGE_UPLOADS"]) if publication.image else None,
             'creation_date': publication.creation_date,
+            'comment_count': len(publication.comments),
             'creator': {
                 'id': publication.creator.id,
                 'name': publication.creator.name,

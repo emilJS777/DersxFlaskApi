@@ -12,4 +12,5 @@ class Publication(db.Model, Model):
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     creator = relationship("User")
 
+    comments = relationship("PublicationComment")
     creation_date = db.Column(db.DateTime(timezone=True), default=func.now())

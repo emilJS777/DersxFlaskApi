@@ -19,6 +19,7 @@ from .Service.ServiceController import ServiceController
 from .ServiceImage.ServiceImageController import ServiceImageController
 from .Publication.PublicationController import PublicationController
 from.PublicationImage.PublicationImageController import PublicationImageController
+from .PublicationComment.PublicationCommentController import PublicationCommentController
 
 api.add_resource(AuthController, "/auth")
 api.add_resource(UserController, "/user")
@@ -40,5 +41,7 @@ api.add_resource(ServiceController, "/service")
 api.add_resource(ServiceImageController, "/service_image")
 api.add_resource(PublicationController, "/publication")
 api.add_resource(PublicationImageController, "/publication_image")
+api.add_resource(PublicationCommentController, "/publication_comment")
+
 
 
