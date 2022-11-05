@@ -20,5 +20,5 @@ class IPublicationRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self, limit: int, offset: int, creator_id: int or None = None) -> list[Publication]:
+    def get_all(self, limit: int, offset: int, creator_id: int or None = None, liked_id: int or None = None) -> list[Publication]:
         pass

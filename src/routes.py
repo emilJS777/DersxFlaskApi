@@ -20,6 +20,7 @@ from .ServiceImage.ServiceImageController import ServiceImageController
 from .Publication.PublicationController import PublicationController
 from.PublicationImage.PublicationImageController import PublicationImageController
 from .PublicationComment.PublicationCommentController import PublicationCommentController
+from .PublicationLike.PublicationLikeController import PublicationLikeController
 
 api.add_resource(AuthController, "/auth")
 api.add_resource(UserController, "/user")
@@ -42,6 +43,4 @@ api.add_resource(ServiceImageController, "/service_image")
 api.add_resource(PublicationController, "/publication")
 api.add_resource(PublicationImageController, "/publication_image")
 api.add_resource(PublicationCommentController, "/publication_comment")
-
-
-
+api.add_resource(PublicationLikeController, "/publication_like")

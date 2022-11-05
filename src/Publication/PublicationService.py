@@ -51,11 +51,12 @@ class PublicationService(Service):
             }
         })
 
-    def get_all(self, limit: int, offset: int, creator_id: int or None) -> dict:
+    def get_all(self, limit: int, offset: int, creator_id: int or None, liked_id: int or None) -> dict:
         publications: list = self.publication_repository.get_all(
             limit=limit,
             offset=offset,
-            creator_id=creator_id)
+            creator_id=creator_id,
+            liked_id=liked_id)
 
         return self.response_ok([{
             'id': publication.id,
@@ -63,6 +64,7 @@ class PublicationService(Service):
             'image': self.get_encode_image(image_path=publication.image.filename, dir_path=app.config["PUBLICATION_IMAGE_UPLOADS"]) if publication.image else None,
             'creation_date': publication.creation_date,
             'comment_count': len(publication.comments),
+            'like_count': len(publication.likes),
             'creator': {
                 'id': publication.creator.id,
                 'name': publication.creator.name,

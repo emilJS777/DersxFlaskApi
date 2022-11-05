@@ -1,5 +1,6 @@
 from .IPublicationRepo import IPublicationRepo
 from .PublicationModel import Publication
+from src.PublicationLike.PublicationLikeModel import PublicationLike
 from flask import g
 
 
@@ -23,9 +24,10 @@ class PublicationRepository(IPublicationRepo):
         publication: Publication = Publication.query.filter_by(id=publication_id).first()
         return publication
 
-    def get_all(self, limit: int, offset: int, creator_id: int or None = None) -> list[Publication]:
+    def get_all(self, limit: int, offset: int, creator_id: int or None = None, liked_id: int or None = None) -> list[Publication]:
         publications: list[Publication] = Publication.query\
-            .order_by(-Publication.creation_date)\
-            .filter(Publication.creator_id == creator_id if creator_id else Publication.id.isnot(None))\
+            .order_by(-Publication.creation_date) \
+            .filter(Publication.creator_id == creator_id if creator_id else Publication.id.isnot(None)) \
+            .where(Publication.likes.any(PublicationLike.user_id.in_([liked_id])) if liked_id else Publication.id.isnot(None)) \
             .limit(limit).offset(offset).all()
         return publications

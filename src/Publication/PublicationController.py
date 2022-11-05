@@ -34,5 +34,6 @@ class PublicationController(Controller):
             res: dict = self.publication_service.get_all(
                 limit=self.arguments.get('limit'),
                 offset=self.arguments.get('offset'),
-                creator_id=self.arguments.get('creator_id'))
+                creator_id=self.arguments.get('creator_id'),
+                liked_id=self.arguments.get('liked_id'))
         return res
