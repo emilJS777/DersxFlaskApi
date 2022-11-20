@@ -4,11 +4,11 @@ from .PublicationService import PublicationService
 from src.Auth.AuthMiddleware import AuthMiddleware
 from flask_expects_json import expects_json
 from .PublicationValidator import publication_schema
-from src.PublicationImage.PublicationImageRepository import PublicationImageRepository
+from src.Image.ImageRepository import ImageRepository
 
 
 class PublicationController(Controller):
-    publication_service: PublicationService = PublicationService(PublicationRepository(), PublicationImageRepository())
+    publication_service: PublicationService = PublicationService(PublicationRepository(), ImageRepository())
 
     @expects_json(publication_schema)
     @AuthMiddleware.check_authorize

@@ -57,7 +57,7 @@ class UserService(Service, Repository):
             'email_address': user.email_address,
             'date_birth': user.date_birth,
             'role_id': user.role_id,
-            'image': self.get_encode_image(user.image.filename) if user.image else None,
+            'image': self.get_dict_items(user.image) if user.image else None,
             'gender_id': user.gender_id,
             'gender': self.get_dict_items(user.gender),
             'creation_date': user.creation_date.strftime("%Y-%m-%d")
@@ -85,7 +85,7 @@ class UserService(Service, Repository):
                 'email_address': user.email_address,
                 'role_id': user.role_id,
                 'gender': self.get_dict_items(user.gender),
-                'image': self.get_encode_image(user.image.filename) if user.image else None,
+                'image': self.get_dict_items(user.image) if user.image else None
             } for user in users.items]
         })
 

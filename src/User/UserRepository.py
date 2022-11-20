@@ -88,4 +88,8 @@ class UserRepository(Repository, IUserRepo):
             .paginate(page=page, per_page=per_page)
         return users
 
+    def get_all_by_ids(self, user_ids: list[int]) -> list[User]:
+        users: list[User] = User.query.filter(User.id.in_(user_ids)).all()
+        return users
+
 

@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from .UserModel import User
 
 
 class IUserRepo(ABC):
@@ -33,6 +34,10 @@ class IUserRepo(ABC):
 
     @abstractmethod
     def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int], search: str or None):
+        pass
+
+    @abstractmethod
+    def get_all_by_ids(self, user_ids: list[int]) -> list[User]:
         pass
 
 

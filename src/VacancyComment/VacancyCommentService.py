@@ -50,7 +50,7 @@ class VacancyCommentService(Service, Repository):
                     'name': vacancy_comment.user.name,
                     'first_name': vacancy_comment.user.first_name,
                     'last_name': vacancy_comment.user.last_name,
-                    'image': self.get_encode_image(vacancy_comment.user.image.filename) if vacancy_comment.user.image else None
+                    'image': self.get_dict_items(vacancy_comment.user.image) if vacancy_comment.user.image else None
                 },
                 'creation_date': vacancy_comment.creation_date
             } for vacancy_comment in vacancy_comments.items]

@@ -14,7 +14,7 @@ class User(Model, db.Model):
 
     role_id = db.Column(db.Integer)
     # image_path = db.Column(db.String(120))
-    image = relationship("UserImage", uselist=False)
+    image = relationship("Image", uselist=False)
 
     gender_id = db.Column(db.Integer, db.ForeignKey('gender.id'))
     gender = relationship("Gender")

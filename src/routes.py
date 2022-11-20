@@ -21,6 +21,10 @@ from .Publication.PublicationController import PublicationController
 from.PublicationImage.PublicationImageController import PublicationImageController
 from .PublicationComment.PublicationCommentController import PublicationCommentController
 from .PublicationLike.PublicationLikeController import PublicationLikeController
+from .Image.ImageController import ImageController
+from .Messager.Message.MessageController import MessageController
+from .Messager.Room.RoomController import RoomController
+
 
 api.add_resource(AuthController, "/auth")
 api.add_resource(UserController, "/user")
@@ -44,3 +48,8 @@ api.add_resource(PublicationController, "/publication")
 api.add_resource(PublicationImageController, "/publication_image")
 api.add_resource(PublicationCommentController, "/publication_comment")
 api.add_resource(PublicationLikeController, "/publication_like")
+api.add_resource(ImageController, "/image")
+api.add_resource(RoomController, "/room")
+api.add_resource(MessageController, "/message")
+
+

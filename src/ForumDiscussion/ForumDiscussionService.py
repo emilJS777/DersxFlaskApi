@@ -43,6 +43,6 @@ class ForumDiscussionService(Service, Repository):
                 'name': forum_discussion.creator.name,
                 'first_name': forum_discussion.creator.first_name,
                 'last_name': forum_discussion.creator.last_name,
-                'image': self.get_encode_image(forum_discussion.creator.image.filename) if forum_discussion.creator.image else None
+                'image': self.get_dict_items(forum_discussion.creator.image) if forum_discussion.creator.image else None
             }
         } for forum_discussion in forum_discussions])

@@ -15,7 +15,7 @@ class UserImageService(Service):
 
     def create(self, image) -> dict:
         filename = f"{g.user_id}{datetime.utcnow().strftime('%B:%d:%Y:%H:%M:%S')}{image.filename}"
-        image.save(os.path.join(app.config["USER_IMAGE_UPLOADS"], filename))
+        image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
         self.user_image_repository.create(filename=filename)
         self.user_repository.update(g.user_id, body={'image_path': filename})
         return self.response_created('фото успешно загружено')
@@ -26,7 +26,7 @@ class UserImageService(Service):
             return self.response_not_found('фото не найдено')
 
         self.user_image_repository.delete(user_image)
-        os.remove(app.config["USER_IMAGE_UPLOADS"] + '/' + filename)
+        os.remove(app.config["IMAGE_UPLOADS"] + '/' + filename)
         return self.response_deleted('фото пользователя удаленно')
 
     def get_by_filename(self, filename: str) -> dict:

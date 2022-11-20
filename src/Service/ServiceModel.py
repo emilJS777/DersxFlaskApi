@@ -17,7 +17,7 @@ class Service(db.Model, Model):
     rubric_id = db.Column(db.Integer, db.ForeignKey("rubric.id"))
     rubric = relationship("Rubric")
     categories = relationship("Category", secondary="service_category")
-    image = relationship("ServiceImage", uselist=False)
+    image = relationship("Image", uselist=False)
 
     payment_interval_id = db.Column(db.Integer, db.ForeignKey('payment_interval.id'))
     payment_interval = relationship("PaymentInterval")

@@ -60,6 +60,6 @@ class VacancyOfferService(Service, Repository):
                                         'name': vacancy_offer.creator.name,
                                         'first_name': vacancy_offer.creator.first_name,
                                         'last_name': vacancy_offer.creator.last_name,
-                                        'image': self.get_encode_image(vacancy_offer.creator.image.filename) if vacancy_offer.creator.image.filename else None
+                                        'image': self.get_dict_items(vacancy_offer.creator.image) if vacancy_offer.creator.image else None
                                     },
                                  } for vacancy_offer in vacancy_offers.items]})

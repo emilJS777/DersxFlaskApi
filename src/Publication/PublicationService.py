@@ -1,14 +1,15 @@
 import os
-from src.PublicationImage.IPublicationImageRepo import IPublicationImageRepo
+from src.Image.IImageRepo import IImageRepo
 from .IPublicationRepo import IPublicationRepo
+from ..__Parents.Repository import Repository
 from ..__Parents.Service import Service
 from src import app
 
 
-class PublicationService(Service):
-    def __init__(self, publication_repository: IPublicationRepo, publication_image_repository: IPublicationImageRepo):
+class PublicationService(Service, Repository):
+    def __init__(self, publication_repository: IPublicationRepo, image_repository: IImageRepo):
         self.publication_repository: IPublicationRepo = publication_repository
-        self.publication_image_repository: IPublicationImageRepo = publication_image_repository
+        self.image_repository: IImageRepo = image_repository
 
     def create(self, body: dict) -> dict:
         publication = self.publication_repository.create(body)
@@ -28,8 +29,8 @@ class PublicationService(Service):
             return self.response_not_found('публикация не найдена')
 
         if publication.image:
-            os.remove(app.config["PUBLICATION_IMAGE_UPLOADS"] + '/' + publication.image.filename)
-            self.publication_image_repository.delete(publication_image=publication.image)
+            self.image_repository.delete(publication.image)
+
         self.publication_repository.delete(publication)
         return self.response_deleted('публикация успешно удалена')
 
@@ -40,14 +41,14 @@ class PublicationService(Service):
         return self.response_ok({
             'id': publication.id,
             'description': publication.description,
-            'image': self.get_encode_image(image_path=publication.image.filename, dir_path=app.config["PUBLICATION_IMAGE_UPLOADS"]) if publication.image else None,
+            'image': self.get_dict_items(publication.image) if publication.image else None,
             'creation_date': publication.creation_date,
             'creator': {
                 'id': publication.creator.id,
                 'first_name': publication.creator.first_name,
                 'last_name': publication.creator.last_name,
                 'name': publication.creator.name,
-                'image': self.get_encode_image(publication.creator.image.filename) if publication.creator.image else None,
+                'image': self.get_dict_items(publication.creator.image) if publication.creator.image else None
             }
         })
 
@@ -61,7 +62,7 @@ class PublicationService(Service):
         return self.response_ok([{
             'id': publication.id,
             'description': publication.description,
-            'image': self.get_encode_image(image_path=publication.image.filename, dir_path=app.config["PUBLICATION_IMAGE_UPLOADS"]) if publication.image else None,
+            'image': self.get_dict_items(publication.image) if publication.image else None,
             'creation_date': publication.creation_date,
             'comment_count': len(publication.comments),
             'like_count': len(publication.likes),
@@ -70,6 +71,6 @@ class PublicationService(Service):
                 'name': publication.creator.name,
                 'first_name': publication.creator.first_name,
                 'last_name': publication.creator.last_name,
-                'image': self.get_encode_image(publication.creator.image.filename) if publication.creator.image else None,
+                'image': self.get_dict_items(publication.creator.image) if publication.creator.image else None
             }
         } for publication in publications])

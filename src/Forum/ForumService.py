@@ -47,7 +47,7 @@ class ForumService(Service, Repository):
                 'name': forum.creator.name,
                 'first_name': forum.creator.first_name,
                 'last_name': forum.creator.last_name,
-                'image': self.get_encode_image(forum.creator.image.filename) if forum.creator.image else None
+                'image': self.get_dict_items(forum.creator.image) if forum.creator.image else None
             }
         })
 
@@ -74,6 +74,6 @@ class ForumService(Service, Repository):
                                          'name': forum.creator.name,
                                          'first_name': forum.creator.first_name,
                                          'last_name': forum.creator.last_name,
-                                         'image': self.get_encode_image(forum.creator.image.filename) if forum.creator.image else None
+                                         'image': self.get_dict_items(forum.creator.image) if forum.creator.image else None
                                      }
                                  } for forum in forums.items]})

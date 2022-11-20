@@ -64,7 +64,7 @@ class VacancyService(Service, Repository):
                 "name": vacancy.creator.name,
                 "first_name": vacancy.creator.first_name,
                 "last_name": vacancy.creator.last_name,
-                "image": self.get_encode_image(vacancy.creator.image.filename) if vacancy.creator.image else None
+                'image': self.get_dict_items(vacancy.creator.image) if vacancy.creator.image else None
             },
         })
 
@@ -102,7 +102,7 @@ class VacancyService(Service, Repository):
                     "name": vacancy.creator.name,
                     "first_name": vacancy.creator.first_name,
                     "last_name": vacancy.creator.last_name,
-                    "image": self.get_encode_image(vacancy.creator.image.filename) if vacancy.creator.image else None
+                    "image": self.get_dict_items(vacancy.creator.image) if vacancy.creator.image else None
                 },
                 'vacancy_offers_count': len(vacancy.vacancy_offers),
             } for vacancy in vacancies.items ] })

@@ -6,11 +6,11 @@ from src.Category.CategoryRepository import CategoryRepository
 from src.Auth.AuthMiddleware import AuthMiddleware
 from flask_expects_json import expects_json
 from .ServiceValidator import service_schema
-from src.ServiceImage.ServiceImageRepository import ServiceImageRepository
+from src.Image.ImageRepository import ImageRepository
 
 
 class ServiceController(Controller):
-    service_service: ServiceService = ServiceService(ServiceRepository(), CategoryRepository(), ServiceImageRepository())
+    service_service: ServiceService = ServiceService(ServiceRepository(), CategoryRepository(), ImageRepository())
 
     @expects_json(service_schema)
     @AuthMiddleware.check_authorize

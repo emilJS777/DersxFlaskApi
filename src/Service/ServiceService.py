@@ -6,15 +6,15 @@ from src import app
 import os
 from flask import g
 from src.Category.ICategoryRepo import ICategoryRepo
-from src.ServiceImage.IServiceImageRepo import IServiceImageRepo
+from src.Image.IImageRepo import IImageRepo
 
 
 class ServiceService(Service, Repository):
 
-    def __init__(self, service_repository: IServiceRepo, category_repository: ICategoryRepo, service_image_repository: IServiceImageRepo):
+    def __init__(self, service_repository: IServiceRepo, category_repository: ICategoryRepo, image_repository: IImageRepo):
         self.service_repository: IServiceRepo = service_repository
         self.category_repository: ICategoryRepo = category_repository
-        self.service_image_repository: IServiceImageRepo = service_image_repository
+        self.image_repository: IImageRepo = image_repository
 
     def create(self, body: dict) -> dict:
         service = self.service_repository.create(
@@ -36,10 +36,11 @@ class ServiceService(Service, Repository):
         service = self.service_repository.get_by_id(service_id)
         if not service or not service.creator_id == g.user_id:
             return self.response_updated('услуга не найдена')
-        self.service_repository.delete(service)
+
         if service.image:
-            os.remove(app.config["SERVICE_IMAGE_UPLOADS"] + '/' + service.image.filename)
-            self.service_image_repository.delete(service_image=service.image)
+            self.image_repository.delete(service.image)
+
+        self.service_repository.delete(service)
         return self.response_deleted('услуга успешно удалена')
 
     def get_by_id(self, service_id: int) -> dict:
@@ -58,13 +59,13 @@ class ServiceService(Service, Repository):
             'price': service.price,
             'contacts': self.get_array_items(service.creator.user_contacts),
             'creation_date': service.creation_date.strftime("%Y-%m-%d"),
-            'image': self.get_encode_image(service.image.filename, app.config['SERVICE_IMAGE_UPLOADS']) if service.image else None,
+            'image': self.get_dict_items(service.image) if service.image else None,
             "creator": {
                 "id": service.creator.id,
                 "name": service.creator.name,
                 "first_name": service.creator.first_name,
                 "last_name": service.creator.last_name,
-                "image": self.get_encode_image(service.creator.image.filename) if service.creator.image else None
+                'image': self.get_dict_items(service.creator.image) if service.creator.image else None
             },
         })
 
@@ -95,6 +96,6 @@ class ServiceService(Service, Repository):
                 'payment_interval': self.get_dict_items(service.payment_interval),
                 'price': service.price,
                 'creation_date': service.creation_date.strftime("%Y-%m-%d"),
-                'image': self.get_encode_image(service.image.filename, app.config['SERVICE_IMAGE_UPLOADS']) if service.image else None
+                'image': self.get_dict_items(service.image) if service.image else None
             } for service in services.items]
         })

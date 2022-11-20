@@ -7,7 +7,7 @@ from datetime import datetime
 
 class Publication(db.Model, Model):
     description = db.Column(db.Text, nullable=False)
-    image = relationship("PublicationImage", uselist=False)
+    image = relationship("Image", uselist=False)
 
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     creator = relationship("User")

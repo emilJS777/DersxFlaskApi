@@ -30,3 +30,6 @@ class PublicationImageService(Service):
         os.remove(app.config["PUBLICATION_IMAGE_UPLOADS"] + '/' + publication.image.filename)
         self.publication_image_repository.delete(publication_image=publication.image)
         return self.response_deleted('картинка успешно удалена')
+
+    def get(self, filename: str) -> dict:
+        pass
