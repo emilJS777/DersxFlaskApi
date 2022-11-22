@@ -40,9 +40,8 @@ class RoomService(Service, Repository):
             'message': self.get_dict_items(room.message) or None
         })
 
-    def get_all(self, limit: int, offset: int) -> dict:
-
-        rooms = self.room_repository.get_all(limit=limit, offset=offset)
+    def get_all(self, limit: int, offset: int, search: str) -> dict:
+        rooms = self.room_repository.get_all(limit=limit, offset=offset, search=search)
 
         for room in rooms:
             for user in room.users:

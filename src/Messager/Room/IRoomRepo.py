@@ -16,5 +16,5 @@ class IRoomRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self, limit: int, offset: int) -> list[Room]:
+    def get_all(self, limit: int, offset: int, search: str) -> list[Room]:
         pass

@@ -20,6 +20,11 @@ class RoomRepository(IRoomRepo):
         room: Room = Room.query.where(Room.users.any(and_(User.id == user_id, User.id == g.user_id))).first()
         return room
 
-    def get_all(self, limit: int, offset: int) -> list[Room]:
-        room: list[Room] = Room.query.join(Room.message).order_by(-Message.creation_date).join(Room.users).where(User.id == g.user_id).all()
+    def get_all(self, limit: int, offset: int, search: str) -> list[Room]:
+        room: list[Room] = Room.query\
+            .join(Room.message)\
+            .order_by(-Message.creation_date)\
+            .join(Room.users)\
+            .where(User.id == g.user_id)\
+            .all()
         return room

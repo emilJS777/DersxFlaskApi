@@ -19,5 +19,6 @@ class RoomController(Controller):
             res: dict = self.room_service.get(self.arguments.get('user_id'))
         else:
             res: dict = self.room_service.get_all(limit=self.arguments.get('limit'),
-                                                  offset=self.arguments.get('offset'))
+                                                  offset=self.arguments.get('offset'),
+                                                  search=self.arguments.get('search'))
         return res
