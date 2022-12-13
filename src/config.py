@@ -8,6 +8,8 @@ from flask_jwt_extended import JWTManager
 from datetime import datetime
 import logging
 from flask_cors import CORS
+from flask_socketio import SocketIO
+
 
 app = Flask(__name__, static_folder='../files')
 api = Api(app)
@@ -35,6 +37,9 @@ logger = logging.getLogger(f"{datetime.utcnow()}")
 app.config['CORS_RESOURCES'] = {r"/*": {"origins": "*"}}
 app.config['CORS_HEADERS'] = 'Content-Type'
 CORS(app, supports_credentials=True)
+
+# SOCKETIO
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 # FILES
 app.config["USER_IMAGE_UPLOADS"] = 'files/user_images'

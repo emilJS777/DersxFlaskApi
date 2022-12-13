@@ -1,7 +1,10 @@
 from sqlalchemy import desc
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql.functions import count, func
+
 from src import db
 from src.__Parents.Model import Model
+from ..Message.MessageModel import Message
 
 
 class RoomUser(db.Model, Model):

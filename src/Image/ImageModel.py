@@ -8,5 +8,6 @@ class Image(db.Model, Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     service_id = db.Column(db.Integer, db.ForeignKey("service.id"))
     publication_id = db.Column(db.Integer, db.ForeignKey("publication.id"))
+    company_id = db.Column(db.Integer, db.ForeignKey("company.id"))
 
     creator_id = db.Column(db.Integer)
