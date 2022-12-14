@@ -24,6 +24,7 @@ from .PublicationLike.PublicationLikeController import PublicationLikeController
 from .Image.ImageController import ImageController
 from .Messager.Message.MessageController import MessageController
 from .Messager.Room.RoomController import RoomController
+from .Messager.RoomUser.RoomUserController import RoomUserController
 from .Company.CompanyController import CompanyController
 
 
@@ -53,5 +54,7 @@ api.add_resource(ImageController, "/image")
 api.add_resource(RoomController, "/room")
 api.add_resource(MessageController, "/message")
 api.add_resource(CompanyController, "/company")
+api.add_resource(RoomUserController, "/room_user")
+
 
 

@@ -10,7 +10,7 @@ class RoomController(Controller):
 
     @AuthMiddleware.check_authorize
     def delete(self) -> dict:
-        res: dict = self.room_service.delete(self.id)
+        res: dict = self.room_service.delete(self.arguments.get('user_id'))
         return res
 
     @AuthMiddleware.check_authorize

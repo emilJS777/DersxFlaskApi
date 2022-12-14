@@ -19,25 +19,22 @@ class RoomService(Service, Repository):
 
     def get(self, user_id: int) -> dict:
         room = self.room_repository.get_by_user_id(user_id)
+
         if not room:
             users = self.user_repository.get_all_by_ids(user_ids=[user_id, g.user_id])
             room = self.room_repository.create(users=users)
 
-        for user in room.users:
-            if user.id != g.user_id:
-                room.partner = user
-                break
+        partner = room.users[0] if room.users[0].id == user_id else room.users[1]
 
         return self.response_ok({
             'id': room.id,
             'user': {
-                'id': room.partner.id,
-                'name': room.partner.name,
-                'first_name': room.partner.first_name,
-                'last_name': room.partner.last_name,
-                'image': self.get_dict_items(room.partner.image) if room.partner.image else None
-            },
-            'message': self.get_dict_items(room.message) or None
+                'id': partner.id,
+                'name': partner.name,
+                'first_name': partner.first_name,
+                'last_name': partner.last_name,
+                'image': self.get_dict_items(partner.image) if partner.image else None
+            }
         })
 
     def get_all(self, limit: int, offset: int, search: str) -> dict:
@@ -57,6 +54,5 @@ class RoomService(Service, Repository):
                 'first_name': room.partner.first_name,
                 'last_name': room.partner.last_name,
                 'image': self.get_dict_items(room.partner.image) if room.partner.image else None
-            },
-            'message': self.get_dict_items(room.message) or None
+            }
         } for room in rooms])
