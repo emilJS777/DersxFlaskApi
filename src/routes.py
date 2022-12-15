@@ -26,6 +26,7 @@ from .Messager.Message.MessageController import MessageController
 from .Messager.Room.RoomController import RoomController
 from .Messager.RoomUser.RoomUserController import RoomUserController
 from .Company.CompanyController import CompanyController
+from .Friend.FriendController import FriendController
 
 
 api.add_resource(AuthController, "/auth")
@@ -55,6 +56,5 @@ api.add_resource(RoomController, "/room")
 api.add_resource(MessageController, "/message")
 api.add_resource(CompanyController, "/company")
 api.add_resource(RoomUserController, "/room_user")
-
-
+api.add_resource(FriendController, "/friend")
 
