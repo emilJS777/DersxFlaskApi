@@ -6,4 +6,4 @@ from src.__Parents.Model import Model
 
 class Room(db.Model, Model):
     users = relationship("User", secondary="room_user")
-    messages = relationship("Message", order_by=desc("creation_date"))
+    message = relationship("Message", order_by=desc("creation_date"), uselist=False)

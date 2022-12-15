@@ -12,10 +12,11 @@ class RoomService(Service, Repository):
 
     def delete(self, user_id: int) -> dict:
         room = self.room_repository.get_by_user_id(user_id)
+        print(user_id)
         if not room:
             return self.response_not_found('рум не найден')
         self.room_repository.delete(room)
-        return self.response_deleted('рум удален')
+        return self.response_deleted('сообщения удалены')
 
     def get(self, user_id: int) -> dict:
         room = self.room_repository.get_by_user_id(user_id)
