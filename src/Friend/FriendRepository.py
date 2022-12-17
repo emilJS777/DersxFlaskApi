@@ -6,12 +6,13 @@ from flask import g
 
 class FriendRepository(IFriendRepo):
 
-    def create(self, body: dict):
+    def create(self, body: dict) -> Friend:
         friend: Friend = Friend()
         friend.user_1_id = g.user_id
         friend.user_2_id = body['user_id']
         friend.creator_id = g.user_id
         friend.save_db()
+        return friend
 
     def update(self, friend: Friend):
         friend.confirmed = True
@@ -33,6 +34,13 @@ class FriendRepository(IFriendRepo):
             .filter(or_(Friend.user_1_id == g.user_id, Friend.user_2_id == g.user_id))\
             .first()
         return friend
+
+    def get_all_requests(self, page: int, per_page: int):
+        friends = Friend.query \
+            .filter_by(confirmed=False) \
+            .filter(Friend.creator_id != g.user_id)\
+            .paginate(page=page, per_page=per_page)
+        return friends
 
     def get_all(self, page: int, per_page: int, user_id: int):
         friends = Friend.query\

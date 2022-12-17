@@ -4,7 +4,7 @@ from .FriendModel import Friend
 
 class IFriendRepo(ABC):
     @abstractmethod
-    def create(self, body: dict):
+    def create(self, body: dict) -> Friend:
         pass
 
     @abstractmethod
@@ -24,5 +24,9 @@ class IFriendRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self, page: int, per_page: int,  user_id: int):
+    def get_all_requests(self, page: int, per_page: int):
+        pass
+
+    @abstractmethod
+    def get_all(self, page: int, per_page: int, user_id: int):
         pass
