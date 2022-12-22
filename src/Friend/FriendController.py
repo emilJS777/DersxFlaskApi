@@ -4,10 +4,11 @@ from .FriendRepository import FriendRepository
 from src.Auth.AuthMiddleware import AuthMiddleware
 from ..User.UserRepository import UserRepository
 from ..Socketio.Socketio import Socketio
+from ..Notification.NotificationRepository import NotificationRepository
 
 
 class FriendController(Controller):
-    friend_service: FriendService = FriendService(FriendRepository(), UserRepository(), Socketio())
+    friend_service: FriendService = FriendService(FriendRepository(), UserRepository(), Socketio(), NotificationRepository())
 
     @AuthMiddleware.check_authorize
     def post(self) -> dict:
@@ -31,10 +32,10 @@ class FriendController(Controller):
                                                     per_page=int(self.arguments.get('per_page')),
                                                     user_id=int(self.arguments.get('user_id')))
 
-        elif self.arguments.get('page') and not self.arguments.get('user_id'):
-            res: dict = self.friend_service.get_all_requests(
-                page=int(self.arguments.get('page')),
-                per_page=int(self.arguments.get('per_page')))
+        # elif self.arguments.get('page') and not self.arguments.get('user_id'):
+        #     res: dict = self.friend_service.get_all_requests(
+        #         page=int(self.arguments.get('page')),
+        #         per_page=int(self.arguments.get('per_page')))
 
         else:
             res: dict = self.friend_service.get_by_user_id(self.arguments.get('user_id'))

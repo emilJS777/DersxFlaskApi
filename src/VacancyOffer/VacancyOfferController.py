@@ -4,10 +4,12 @@ from .VacancyOfferRepository import VacancyOfferRepository
 from src.Auth.AuthMiddleware import AuthMiddleware
 from flask_expects_json import expects_json
 from .VacancyOfferValidator import vacancy_offer_schema
+from ..Notification.NotificationRepository import NotificationRepository
+from ..Socketio.Socketio import Socketio
 
 
 class VacancyOfferController(Controller):
-    vacancy_offer_service: VacancyOfferService = VacancyOfferService(VacancyOfferRepository())
+    vacancy_offer_service: VacancyOfferService = VacancyOfferService(VacancyOfferRepository(), NotificationRepository(), Socketio())
 
     @expects_json(vacancy_offer_schema)
     @AuthMiddleware.check_authorize

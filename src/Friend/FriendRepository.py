@@ -14,9 +14,10 @@ class FriendRepository(IFriendRepo):
         friend.save_db()
         return friend
 
-    def update(self, friend: Friend):
+    def update(self, friend: Friend) -> Friend:
         friend.confirmed = True
         friend.update_db()
+        return friend
 
     def delete(self, friend: Friend):
         friend.delete_db()
@@ -35,12 +36,12 @@ class FriendRepository(IFriendRepo):
             .first()
         return friend
 
-    def get_all_requests(self, page: int, per_page: int):
-        friends = Friend.query \
-            .filter_by(confirmed=False) \
-            .filter(Friend.creator_id != g.user_id)\
-            .paginate(page=page, per_page=per_page)
-        return friends
+    # def get_all_requests(self, page: int, per_page: int):
+    #     friends = Friend.query \
+    #         .filter_by(confirmed=False) \
+    #         .filter(Friend.creator_id != g.user_id)\
+    #         .paginate(page=page, per_page=per_page)
+    #     return friends
 
     def get_all(self, page: int, per_page: int, user_id: int):
         friends = Friend.query\

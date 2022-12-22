@@ -4,7 +4,7 @@ from flask import g
 
 
 class VacancyOfferRepository(IVacancyOfferRepo):
-    def create(self, body: dict):
+    def create(self, body: dict) -> VacancyOffer:
         vacancy_offer: VacancyOffer = VacancyOffer()
         vacancy_offer.vacancy_id = body['vacancy_id']
         vacancy_offer.price = body['price']
@@ -12,6 +12,7 @@ class VacancyOfferRepository(IVacancyOfferRepo):
         vacancy_offer.payment_interval_id = body['payment_interval_id']
         vacancy_offer.creator_id = g.user_id
         vacancy_offer.save_db()
+        return vacancy_offer
 
     def update(self, vacancy_offer: VacancyOffer, body: dict):
         vacancy_offer.price = body['price']

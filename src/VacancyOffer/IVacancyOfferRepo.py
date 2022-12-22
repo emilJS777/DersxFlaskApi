@@ -4,7 +4,7 @@ from .VacancyOfferModel import VacancyOffer
 
 class IVacancyOfferRepo(ABC):
     @abstractmethod
-    def create(self, body: dict):
+    def create(self, body: dict) -> VacancyOffer:
         pass
 
     @abstractmethod

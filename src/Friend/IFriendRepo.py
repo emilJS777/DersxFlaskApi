@@ -8,7 +8,7 @@ class IFriendRepo(ABC):
         pass
 
     @abstractmethod
-    def update(self, friend: Friend):
+    def update(self, friend: Friend) -> Friend:
         pass
 
     @abstractmethod
@@ -23,9 +23,9 @@ class IFriendRepo(ABC):
     def get_by_id(self, friend_id: int) -> Friend:
         pass
 
-    @abstractmethod
-    def get_all_requests(self, page: int, per_page: int):
-        pass
+    # @abstractmethod
+    # def get_all_requests(self, page: int, per_page: int):
+    #     pass
 
     @abstractmethod
     def get_all(self, page: int, per_page: int, user_id: int):
