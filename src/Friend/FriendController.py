@@ -8,7 +8,7 @@ from ..Notification.NotificationRepository import NotificationRepository
 
 
 class FriendController(Controller):
-    friend_service: FriendService = FriendService(FriendRepository(), UserRepository(), Socketio(), NotificationRepository())
+    friend_service: FriendService = FriendService(FriendRepository(), UserRepository(), NotificationRepository(Socketio()))
 
     @AuthMiddleware.check_authorize
     def post(self) -> dict:

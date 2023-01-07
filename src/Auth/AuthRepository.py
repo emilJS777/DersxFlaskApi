@@ -22,7 +22,7 @@ class AuthRepository(Repository, IAuthRepo):
 
     def get_by_user_id(self, user_id: int):
         auth: Auth = Auth.query.filter_by(user_id=user_id).first()
-        return self.get_dict_items(auth)
+        return auth
 
 
 

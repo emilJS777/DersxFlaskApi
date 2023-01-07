@@ -22,6 +22,6 @@ class RubricRepository(IRubricRepo):
         rubric: Rubric = Rubric.query.filter_by(id=rubric_id).first()
         return rubric
 
-    def get_all(self) -> list[Rubric]:
-        rubric: list[Rubric] = Rubric.query.all()
+    def get_all(self, rubric_ids: list[int] = None) -> list[Rubric]:
+        rubric: list[Rubric] = Rubric.query.filter(Rubric.id.in_(rubric_ids) if rubric_ids is not None else Rubric.id.isnot(None)).all()
         return rubric

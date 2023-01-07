@@ -36,16 +36,15 @@ class AuthService(Service, Repository):
         return self.response_invalid_login()
 
     def get_profile(self) -> dict:
-        profile = self.__user_repository.get_by_id(g.user_id)
         return self.response_ok({
-            'id': profile.id,
-            'name': profile.name,
-            'first_name': profile.first_name,
-            'last_name': profile.last_name,
-            'email_address': profile.email_address,
-            'date_birth': profile.date_birth,
-            'role_id': profile.role_id,
-            'image': self.get_encode_image(profile.image.filename) if profile.image else None,
-            'gender_id': profile.gender_id,
-            'gender': self.get_dict_items(profile.gender)
+            'id': g.user.id,
+            'name': g.user.name,
+            'first_name': g.user.first_name,
+            'last_name': g.user.last_name,
+            'email_address': g.user.email_address,
+            'date_birth': g.user.date_birth,
+            'role_id': g.user.role_id,
+            'image': self.get_encode_image(g.user.image.filename) if g.user.image else None,
+            'gender_id': g.user.gender_id,
+            'gender': self.get_dict_items(g.user.gender)
         })

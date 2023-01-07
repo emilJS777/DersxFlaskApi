@@ -13,12 +13,10 @@ class FriendService(Service, Repository):
     def __init__(self,
                  friend_repository: IFriendRepo,
                  user_repository: IUserRepo,
-                 socket_io: ISocketio,
                  notification_repository: INotificationRepo):
 
         self.friend_repository: IFriendRepo = friend_repository
         self.user_repository: IUserRepo = user_repository
-        self.socket_io: ISocketio = socket_io
         self.notification_repository: INotificationRepo = notification_repository
 
     def get_users_by_friends(self, friends: list, user_id: int):
@@ -33,13 +31,7 @@ class FriendService(Service, Repository):
     def create(self, body: dict) -> dict:
         if not self.friend_repository.get_by_user_id(user_id=body['user_id']):
             friend = self.friend_repository.create(body=body)
-            notification = self.notification_repository.create(user_id=body['user_id'], friend_id=friend.id)
-
-            data = {"notification_ids": [notification.id]}
-            self.socket_io.send(
-                emit_name="notification_ids",
-                data=data,
-                user_id=body['user_id'])
+            self.notification_repository.create(user_id=body['user_id'], friend_id=friend.id)
 
             return self.response_created('запрос на дружбу отправлен')
         else:
@@ -55,10 +47,7 @@ class FriendService(Service, Repository):
         friend = self.friend_repository.update(friend)
         self.notification_repository.delete(friend_id=friend_id)
         # NOTIFICATION
-        notification = self.notification_repository.create(friend_id=friend.id, user_id=friend.creator_id)
-        self.socket_io.send(
-            emit_name="notification_ids",
-            data={"notification_ids": [notification.id]}, user_id=friend.creator_id)
+        self.notification_repository.create(friend_id=friend.id, user_id=friend.creator_id)
         return self.response_updated('теперь вы друзья!')
 
     def delete(self, friend_id: int, user_id: int) -> dict:

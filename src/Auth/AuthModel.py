@@ -1,9 +1,11 @@
+from sqlalchemy.orm import relationship
 from src import db
 from src.__Parents.Model import Model
 
 
 class Auth(Model, db.Model):
-    user_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user = relationship("User")
     access_token = db.Column(db.String(320), nullable=False)
     # refresh_token = db.Column(db.String(320), nullable=False)
 

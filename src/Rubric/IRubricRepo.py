@@ -20,5 +20,5 @@ class IRubricRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self) -> list[Rubric]:
+    def get_all(self, rubric_ids: list[int] = None) -> list[Rubric]:
         pass

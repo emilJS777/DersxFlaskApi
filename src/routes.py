@@ -60,3 +60,5 @@ api.add_resource(RoomUserController, "/room_user")
 api.add_resource(FriendController, "/friend")
 api.add_resource(NotificationController, "/notification")
 
+
+

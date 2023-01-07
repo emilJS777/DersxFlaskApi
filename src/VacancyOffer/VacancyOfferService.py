@@ -8,22 +8,16 @@ from ..Socketio.ISocketio import ISocketio
 
 class VacancyOfferService(Service, Repository):
 
-    def __init__(self, vacancy_offer_repository: IVacancyOfferRepo, notification_repository: INotificationRepo, socket_io: ISocketio):
+    def __init__(self, vacancy_offer_repository: IVacancyOfferRepo, notification_repository: INotificationRepo):
         self.vacancy_offer_repository: IVacancyOfferRepo = vacancy_offer_repository
         self.notification_repository: INotificationRepo = notification_repository
-        self.socket_io: ISocketio = socket_io
 
     def create(self, body: dict) -> dict:
         if self.vacancy_offer_repository.get_by_vacancy_id_creator_id(vacancy_id=body['vacancy_id'], creator_id=g.user_id):
             return self.response_conflict('в данной вакансии у вас уже есть предложение')
-
         vacancy_offer = self.vacancy_offer_repository.create(body)
-
         # NOTIFICATION
-        notification = self.notification_repository.create(user_id=vacancy_offer.vacancy.creator_id, vacancy_offer_id=vacancy_offer.id)
-        data = {"notification_ids": [notification.id]}
-        self.socket_io.send(emit_name="notification_ids", data=data, user_id=vacancy_offer.vacancy.creator_id)
-
+        self.notification_repository.create(user_id=vacancy_offer.vacancy.creator_id, vacancy_offer_id=vacancy_offer.id)
         return self.response_created('предложение успешно создано')
 
     def update(self, vacancy_offer_id: int, body: dict) -> dict:

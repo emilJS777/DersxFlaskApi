@@ -22,9 +22,12 @@ class AuthMiddleware(Service):
                                 app.config['JWT_SECRET_KEY'],
                                 algorithms=[app.config['JWT_ALGORITHM']])
 
-            if decode and AuthMiddleware.__auth_repository.get_by_user_id(decode['user_id']):
-                g.user_id = decode['user_id']
-                return f(*args, **kwargs)
+            if decode:
+                auth = AuthMiddleware.__auth_repository.get_by_user_id(decode['user_id'])
+                if auth:
+                    g.user = auth.user
+                    g.user_id = decode['user_id']
+                    return f(*args, **kwargs)
             return AuthMiddleware.response_invalid_login()
 
         return decorated_function

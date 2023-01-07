@@ -6,7 +6,7 @@ from src.Auth.AuthMiddleware import AuthMiddleware
 
 
 class NotificationController(Controller):
-    notification_service: NotificationService = NotificationService(NotificationRepository(), Socketio())
+    notification_service: NotificationService = NotificationService(NotificationRepository(Socketio()), Socketio())
 
     @AuthMiddleware.check_authorize
     def get(self) -> dict:
