@@ -9,14 +9,13 @@ class NotificationRepository(INotificationRepo):
     def __init__(self, socket_io: ISocketio):
         self.socket_io: ISocketio = socket_io
 
-    def create(self, user_id: int, friend_id: int = None, vacancy_offer_id: int = None, team_id: int = None) -> Notification:
+    def create(self, user_id: int, friend_id: int = None, vacancy_offer_id: int = None) -> Notification:
         notification: Notification = Notification()
         notification.creator_id = g.user_id
         notification.user_id = user_id
 
         notification.friend_id = friend_id
         notification.vacancy_offer_id = vacancy_offer_id
-        notification.team_id = team_id
 
         notification.save_db()
 

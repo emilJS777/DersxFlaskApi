@@ -20,7 +20,7 @@ class ImageService(Service):
             company_id=company_id,
             team_id=team_id)
 
-        return self.response_created('изображение загружено')
+        return self.response_created('данные загружены')
 
     def delete(self, filename: str = None) -> dict:
         image = self.image_repository.get(filename=filename)

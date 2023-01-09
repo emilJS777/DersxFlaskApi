@@ -25,12 +25,6 @@ class NotificationService(Service, Repository):
             'vacancy_offer_id': notification.vacancy_offer_id,
             'vacancy_offer': self.get_dict_items(notification.vacancy_offer) if notification.vacancy_offer_id else None,
             'friend': self.get_dict_items(notification.friend) if notification.friend else None,
-            'team': {
-                'id': notification.team.id,
-                'title': notification.team.title,
-                'creator_id': notification.team.creator_id,
-                'image': self.get_dict_items(notification.team.image) if notification.team.image else None,
-            } if notification.team else None,
             "creator": {
                         'id': notification.creator.id,
                         'name': notification.creator.name,
