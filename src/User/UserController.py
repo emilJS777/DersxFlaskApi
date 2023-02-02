@@ -32,6 +32,7 @@ class UserController(Controller):
             body=self.request.get_json()
         )
 
+    @AuthMiddleware.check_authorize
     def get(self):
         if self.id:
             return self.user_service.get_by_id(self.id)

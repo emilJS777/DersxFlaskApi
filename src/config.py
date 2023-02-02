@@ -13,8 +13,9 @@ app = Flask(__name__, static_folder='../files')
 api = Api(app)
 
 # CONNECT TO DATABASE CONFIG
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:<password>@localhost/derso_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:<password>@localhost/derso_db?charset=utf8mb4"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['MYSQL_DATABASE_CHARSET'] = 'utf8mb4'
 db = SQLAlchemy(app)
 db.init_app(app)
 db.create_all()

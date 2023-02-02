@@ -9,5 +9,4 @@ class Image(db.Model, Model):
     service_id = db.Column(db.Integer, db.ForeignKey("service.id"))
     publication_id = db.Column(db.Integer, db.ForeignKey("publication.id"))
     company_id = db.Column(db.Integer, db.ForeignKey("company.id"))
-    team_id = db.Column(db.Integer, db.ForeignKey("team.id"))
     creator_id = db.Column(db.Integer)

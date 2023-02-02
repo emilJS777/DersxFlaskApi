@@ -5,6 +5,7 @@ from flask import g
 
 class MessageRepository(IMessageRepo):
     def create(self, body: dict) -> Message:
+        print(body['text'])
         message: Message = Message()
         message.room_id = body['room_id']
         message.creator_id = g.user_id

@@ -27,6 +27,7 @@ class PublicationController(Controller):
         res: dict = self.publication_service.delete(self.id)
         return res
 
+    @AuthMiddleware.check_authorize
     def get(self) -> dict:
         if self.id:
             res: dict = self.publication_service.get_by_id(self.id)
