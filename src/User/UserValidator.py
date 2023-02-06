@@ -6,6 +6,7 @@ user_create_schema = {
         "first_name": {"type": "string", "minLength": 3, "maxLength": 60},
         "last_name": {"type": "string", "minLength": 3, "maxLength": 60},
         "date_birth": {"type": "string"},
+        "region": {"type": "string", "minLength": 1, "maxLength": 60},
         "email_address": {"type": "string", "minLength": 6, "maxLength": 120},
         "role_id": {"type": "number"},
         "gender_id": {"type": "number"}
@@ -20,6 +21,7 @@ user_update_schema = {
         "first_name": {"type": "string", "maxLength": 60},
         "last_name": {"type": "string", "maxLength": 60},
         "date_birth": {"type": "string"},
+        "region": {"type": "string", "maxLength": 60},
         "email_address": {"type": "string", "maxLength": 120},
         "role_id": {"type": "number"},
         "gender_id": {"type": "number"}

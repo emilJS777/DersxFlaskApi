@@ -19,6 +19,7 @@ class UserRepository(Repository, IUserRepo):
         user.last_name = body['last_name'].title()
         user.email_address = body['email_address']
         user.date_birth = body['date_birth'].split('T')[0]
+        user.region = body['region']
         user.gender_id = body['gender_id']
         user.save_db()
         return user
@@ -37,6 +38,9 @@ class UserRepository(Repository, IUserRepo):
 
         if body.get('date_birth'):
             user.date_birth = body['date_birth'].split('T')[0]
+
+        if body.get('region'):
+            user.region = body['region']
 
         if body.get('role_id'):
             user.role_id = body['role_id']

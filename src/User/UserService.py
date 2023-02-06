@@ -56,6 +56,7 @@ class UserService(Service, Repository):
             'last_name': user.last_name,
             'email_address': user.email_address,
             'date_birth': user.date_birth,
+            'region': user.region,
             'role_id': user.role_id,
             'image': self.get_dict_items(user.image) if user.image else None,
             'gender_id': user.gender_id,

@@ -10,6 +10,7 @@ class User(Model, db.Model):
     first_name = db.Column(db.String(60), nullable=False)
     last_name = db.Column(db.String(60), nullable=False)
     date_birth = db.Column(db.Date(), nullable=False)
+    region = db.Column(db.String(60), nullable=False)
     email_address = db.Column(db.String(120), nullable=False)
 
     role_id = db.Column(db.Integer)
