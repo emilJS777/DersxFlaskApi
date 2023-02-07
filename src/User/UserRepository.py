@@ -86,8 +86,8 @@ class UserRepository(Repository, IUserRepo):
 
     def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int], search: str or None) -> dict:
         users = self.user.query\
-            .where(User.skills.any(Skill.rubric_id.in_([rubric_id])))\
-            .where(User.skills.any(Skill.categories.any(Category.id.in_(category_ids))))\
+            .where(User.skills.any(Skill.rubric_id.in_([rubric_id])) if rubric_id else User.id.isnot(None))\
+            .where(User.skills.any(Skill.categories.any(Category.id.in_(category_ids))) if len(category_ids) else User.id.isnot(None))\
             .filter(or_(User.last_name.like(f"%{search}%"), User.first_name.like(f"%{search}%")) if search else User.id.isnot(None))\
             .paginate(page=page, per_page=per_page)
         return users

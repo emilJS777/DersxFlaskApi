@@ -29,8 +29,9 @@ class Socketio(ISocketio):
     @socketio.on('get_online')
     @staticmethod
     def get_online(data: dict):
-        print(data)
         for sid in sids:
             if sid["user_id"] == data['user_id']:
                 emit('online', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
-                break
+                return
+            else:
+                emit('offline', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
