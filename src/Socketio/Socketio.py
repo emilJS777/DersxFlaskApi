@@ -25,3 +25,12 @@ class Socketio(ISocketio):
         for sid in sids:
             if sid['user_id'] == user_id:
                 emit(emit_name, data, namespace=False, broadcast=True, to=sid["sid"])
+
+    @socketio.on('get_online')
+    @staticmethod
+    def get_online(data: dict):
+        print(data)
+        for sid in sids:
+            if sid["user_id"] == data['user_id']:
+                emit('online', {}, namespace=False, broadcast=True, to=request.sid)
+                break

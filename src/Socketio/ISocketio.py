@@ -14,3 +14,7 @@ class ISocketio(ABC):
     @abstractmethod
     def send(self, emit_name: str, data: dict, user_id: int):
         pass
+
+    @abstractmethod
+    def get_online(data: dict):
+        pass
