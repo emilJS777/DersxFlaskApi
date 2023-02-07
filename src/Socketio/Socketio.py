@@ -32,5 +32,5 @@ class Socketio(ISocketio):
         print(data)
         for sid in sids:
             if sid["user_id"] == data['user_id']:
-                emit('online', {}, namespace=False, broadcast=True, to=request.sid)
+                emit('online', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
                 break
