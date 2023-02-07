@@ -33,5 +33,4 @@ class Socketio(ISocketio):
             if sid["user_id"] == data['user_id']:
                 emit('online', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
                 return
-            else:
-                emit('offline', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
+        emit('offline', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
