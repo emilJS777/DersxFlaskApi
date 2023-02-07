@@ -31,6 +31,5 @@ class Socketio(ISocketio):
     def get_online(data: dict):
         for sid in sids:
             if sid["user_id"] == data['user_id']:
-                emit('online', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
-                return
-        emit('offline', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
+                return emit('online', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
+        return emit('offline', {'user_id': data['user_id']}, namespace=False, broadcast=True, to=request.sid)
