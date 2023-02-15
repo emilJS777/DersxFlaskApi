@@ -4,11 +4,11 @@ from .CompanyModel import Company
 
 class ICompanyRepo(ABC):
     @abstractmethod
-    def create(self, body: dict):
+    def create(self, body: dict, rubrics: list) -> Company:
         pass
 
     @abstractmethod
-    def update(self, company: Company, body: dict):
+    def update(self, company: Company, body: dict, rubrics: list):
         pass
 
     @abstractmethod
@@ -20,5 +20,5 @@ class ICompanyRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self, page: int, per_page: int, search: str or None):
+    def get_all(self, limit: int, offset: int, search: str or None, user_id: int or None, rubric_ids: list[int] or None):
         pass

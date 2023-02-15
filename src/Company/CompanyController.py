@@ -1,13 +1,16 @@
+import ast
+
 from src.__Parents.Controller import Controller
 from .CompanyService import CompanyService
 from .CompanyRepository import CompanyRepository
 from src.Auth.AuthMiddleware import AuthMiddleware
 from flask_expects_json import expects_json
 from .CompanyValidator import company_schema
+from src.Rubric.RubricRepository import RubricRepository
 
 
 class CompanyController(Controller):
-    company_service: CompanyService = CompanyService(CompanyRepository())
+    company_service: CompanyService = CompanyService(CompanyRepository(), RubricRepository())
 
     @expects_json(company_schema)
     @AuthMiddleware.check_authorize
@@ -26,9 +29,14 @@ class CompanyController(Controller):
         res: dict = self.company_service.delete(self.id)
         return res
 
+    @AuthMiddleware.check_authorize
     def get(self) -> dict:
         if self.id:
             res: dict = self.company_service.get_by_id(self.id)
         else:
-            res: dict = self.company_service.get_all(page=self.page, per_page=self.per_page, search=self.arguments.get("search"))
+            res: dict = self.company_service.get_all(limit=self.arguments.get('limit'),
+                                                     offset=self.arguments.get('offset'),
+                                                     search=self.arguments.get("search"),
+                                                     user_id=self.arguments.get('user.id'),
+                                                     rubric_ids=ast.literal_eval(self.arguments.get('rubric_ids')) if self.arguments.get('rubric_ids') else None)
         return res
