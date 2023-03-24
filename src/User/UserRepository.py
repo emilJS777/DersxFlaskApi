@@ -1,11 +1,12 @@
-from sqlalchemy import or_
-
+from sqlalchemy import or_, not_
+from ..GroupInvite.GroupInviteModel import GroupInvite
 from src.__Parents.Repository import Repository
 from .IUserRepo import IUserRepo
 from .UserModel import User
 from flask_bcrypt import generate_password_hash
 from src.Skill.SkillModel import Skill
 from src.Category.CategoryModel import Category
+from ..Group.GroupModel import Group
 
 
 class UserRepository(Repository, IUserRepo):
@@ -84,11 +85,14 @@ class UserRepository(Repository, IUserRepo):
         user = self.user.query.filter(self.user.id != user_id, self.user.name == name).first()
         return self.get_dict_items(user)
 
-    def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int], search: str or None) -> dict:
+    def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int] or None,
+                search: str or None, group_id: int or None, not_group_id: int or None) -> dict:
         users = self.user.query\
-            .where(User.skills.any(Skill.rubric_id.in_([rubric_id])))\
-            .where(User.skills.any(Skill.categories.any(Category.id.in_(category_ids))))\
-            .filter(or_(User.last_name.like(f"%{search}%"), User.first_name.like(f"%{search}%")) if search else User.id.isnot(None))\
+            .where(User.skills.any(Skill.rubric_id.in_([rubric_id])) if rubric_id else User.id.isnot(None))\
+            .where(User.skills.any(Skill.categories.any(Category.id.in_(category_ids))) if category_ids else User.id.isnot(None))\
+            .filter(or_(User.last_name.like(f"%{search}%"), User.first_name.like(f"%{search}%")) if search else User.id.isnot(None)) \
+            .filter(User.groups.any(Group.id == group_id) if group_id else User.id.isnot(None))\
+            .filter(not_(User.groups.any(Group.id == not_group_id)))\
             .paginate(page=page, per_page=per_page)
         return users
 

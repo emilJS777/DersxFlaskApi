@@ -33,7 +33,8 @@ class IUserRepo(ABC):
         pass
 
     @abstractmethod
-    def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int], search: str or None):
+    def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int] or None,
+                search: str or None, group_id: int or None, not_group_id: int or None):
         pass
 
     @abstractmethod

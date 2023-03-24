@@ -65,14 +65,17 @@ class UserService(Service, Repository):
         })
 
     # GET ALL
-    def get_all(self, page: int, per_page: int, rubric_id: int, role_id: int or None, category_ids: list[int], search: int or None) -> dict:
+    def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int] or None,
+                search: int or None,  group_id: int or None, not_group_id: int or None) -> dict:
         users: dict = self._user_repository.get_all(
             page=page,
             per_page=per_page,
             rubric_id=rubric_id,
             role_id=role_id,
             category_ids=category_ids,
-            search=search)
+            search=search,
+            group_id=group_id,
+            not_group_id=not_group_id)
         return self.response_ok({
             'total': users.total,
             'page': users.page,
@@ -86,7 +89,7 @@ class UserService(Service, Repository):
                 'email_address': user.email_address,
                 'role_id': user.role_id,
                 'gender': self.get_dict_items(user.gender),
-                'image': self.get_dict_items(user.image) if user.image else None
+                'image': self.get_dict_items(user.image) if user.image else None,
             } for user in users.items]
         })
 

@@ -5,11 +5,11 @@ from abc import ABC, abstractmethod
 class INotificationRepo(ABC):
 
     @abstractmethod
-    def create(self, user_id: int, friend_id: int = None, vacancy_offer_id: int = None) -> Notification:
+    def create(self, user_id: int, friend_id: int = None, vacancy_offer_id: int = None, group_invite_id: int = None) -> Notification:
         pass
 
     @abstractmethod
-    def delete(self, notification: Notification = None, friend_id: int = None):
+    def delete(self, notification: Notification = None, friend_id: int = None, group_invite_id: int = None):
         pass
 
     @abstractmethod

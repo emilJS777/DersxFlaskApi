@@ -8,16 +8,16 @@ from datetime import datetime
 
 class ImageRepository(IImageRepo):
 
-    def create(self, image, user_id: int = None, service_id: int = None, publication_id: int = None, company_id: int = None):
+    def create(self, image, user_id: int = None, service_id: int = None, publication_id: int = None, company_id: int = None, group_id: int = None):
         filename = f"{g.user_id}{datetime.utcnow().strftime('%B:%d:%Y:%H:%M:%S')}{image.filename}"
         image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
-
         image: Image = Image()
         image.filename = filename
         image.user_id = user_id
         image.service_id = service_id
         image.publication_id = publication_id
         image.company_id = company_id
+        image.group_id = group_id
         image.creator_id = g.user_id
         image.save_db()
 

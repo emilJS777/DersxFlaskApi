@@ -41,6 +41,7 @@ class AuthService(Service, Repository):
             'name': g.user.name,
             'first_name': g.user.first_name,
             'last_name': g.user.last_name,
+            'region': g.user.region,
             'email_address': g.user.email_address,
             'date_birth': g.user.date_birth,
             'role_id': g.user.role_id,

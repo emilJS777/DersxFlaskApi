@@ -43,6 +43,8 @@ class UserController(Controller):
                 per_page=self.per_page,
                 rubric_id=int(self.arguments.get("rubric_id") or 0),
                 role_id=int(self.arguments.get('role_id') or 0),
-                category_ids=ast.literal_eval(self.arguments.get('category_ids')),
-                search=self.arguments.get('search') or None
+                category_ids=ast.literal_eval(self.arguments.get('category_ids')) if self.arguments.get('category_ids') else None,
+                search=self.arguments.get('search') or None,
+                group_id=int(self.arguments.get('group_id') or 0),
+                not_group_id=int(self.arguments.get('not_group_id') or 0)
             )

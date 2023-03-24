@@ -23,3 +23,4 @@ class User(Model, db.Model):
     skills = relationship("Skill")
     user_contacts = relationship("UserContact")
     creation_date = db.Column(db.DateTime, default=datetime.utcnow())
+    groups = relationship("Group", secondary="group_invite", secondaryjoin="and_(GroupInvite.group_id==Group.id, GroupInvite.confirmed==True)")

@@ -14,7 +14,8 @@ class ImageController(Controller):
             user_id=self.arguments.get("user_id"),
             service_id=self.arguments.get('service_id'),
             publication_id=self.arguments.get('publication_id'),
-            company_id=self.arguments.get('company_id'))
+            company_id=self.arguments.get('company_id'),
+            group_id=self.arguments.get('group_id'))
         return res
 
     @AuthMiddleware.check_authorize

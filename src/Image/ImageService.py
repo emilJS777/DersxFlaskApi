@@ -11,13 +11,14 @@ class ImageService(Service):
     def __init__(self, image_repository: IImageRepo):
         self.image_repository: IImageRepo = image_repository
 
-    def create(self, image, user_id: int or None, service_id: int or None, publication_id: int or None, company_id: int or None) -> dict:
+    def create(self, image, user_id: int or None, service_id: int or None, publication_id: int or None, company_id: int or None, group_id: int or None) -> dict:
         self.image_repository.create(
             image=image,
             user_id=user_id,
             service_id=service_id,
             publication_id=publication_id,
-            company_id=company_id)
+            company_id=company_id,
+            group_id=group_id)
 
         return self.response_created('данные загружены')
 

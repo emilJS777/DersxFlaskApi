@@ -25,8 +25,7 @@ class RoomService(Service, Repository):
             users = self.user_repository.get_all_by_ids(user_ids=[user_id, g.user_id])
             room = self.room_repository.create(users=users)
 
-        partner = room.users[0] if room.users[0].id == user_id else room.users[1]
-
+        partner = room.users[0] if int(room.users[0].id) == int(user_id) else room.users[1]
         return self.response_ok({
             'id': room.id,
             'user': {

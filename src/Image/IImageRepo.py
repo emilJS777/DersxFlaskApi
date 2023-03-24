@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 class IImageRepo(ABC):
     @abstractmethod
-    def create(self, image, user_id: int = None, service_id: int = None, publication_id: int = None, company_id: int = None):
+    def create(self, image, user_id: int = None, service_id: int = None, publication_id: int = None, company_id: int = None, group_id: int = None):
         pass
 
     @abstractmethod
