@@ -28,7 +28,16 @@ class MessageService(Service, Repository):
         message = self.message_repository.get_by_id(message_id)
         if not message or not message.creator_id == g.user_id:
             return self.response_not_found('сообщение не найдено')
-        self.message_repository.update(message=message, body=body)
+        new_message = self.message_repository.update(message=message, body=body)
+        new_mess_body: dict = {
+            'id': new_message.id,
+            'text': new_message.text,
+            'read': new_message.read,
+            'edited': new_message.edited,
+            'room_id': new_message.room_id,
+            'creator_id': new_message.creator_id
+        }
+        self.socketio.send(emit_name='message_update', data=new_mess_body, user_id=new_message.addresser_id)
         return self.response_updated('сообщение обновлено')
 
     def read(self, message_id: int) -> dict:
@@ -45,6 +54,7 @@ class MessageService(Service, Repository):
             return self.response_not_found('сообщение не найдено')
 
         self.message_repository.delete(message=message)
+        self.socketio.send(emit_name='message_delete', data={'id': message.id, 'room_id': message.room_id}, user_id=message.addresser_id)
         return self.response_updated('сообщение удалено')
 
     def get_by_id(self, message_id: int) -> dict:
@@ -59,6 +69,7 @@ class MessageService(Service, Repository):
             'id': message.id,
             'text': message.text,
             'read': message.read,
+            'edited': message.edited,
             'creator_id': message.creator_id,
             'creation_date': message.creation_date
         } for message in messages])
@@ -69,6 +80,7 @@ class MessageService(Service, Repository):
             'id': message.id,
             'text': message.text,
             'read': message.read,
+            'edited': message.edited,
             'room_id': message.room_id,
             'creator_id': message.creator_id,
             'creation_date': message.creation_date

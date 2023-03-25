@@ -8,7 +8,7 @@ class Message(db.Model, Model):
     text = db.Column(db.Text, nullable=False)
     read = db.Column(db.Boolean, default=False)
     room_id = db.Column(db.Integer, db.ForeignKey("room.id"))
-
+    edited = db.Column(db.Boolean, default=False)
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     creator = relationship("User")
     addresser_id = db.Column(db.Integer)

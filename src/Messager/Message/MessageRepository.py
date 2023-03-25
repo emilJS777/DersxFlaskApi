@@ -14,9 +14,11 @@ class MessageRepository(IMessageRepo):
         message.save_db()
         return message
 
-    def update(self, message: Message, body: dict):
+    def update(self, message: Message, body: dict) -> Message:
         message.text = body['text']
+        message.edited = True
         message.update_db()
+        return message
 
     def read(self, message: Message):
         message.read = True

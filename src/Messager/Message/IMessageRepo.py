@@ -8,7 +8,7 @@ class IMessageRepo(ABC):
         pass
 
     @abstractmethod
-    def update(self, message: Message, body: dict):
+    def update(self, message: Message, body: dict) -> Message:
         pass
 
     @abstractmethod
