@@ -1,4 +1,4 @@
-from sqlalchemy import func, Text
+from sqlalchemy import func
 from sqlalchemy.orm import relationship
 from src import db
 from src.__Parents.Model import Model

@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from sqlalchemy import func
 from sqlalchemy.orm import relationship
 from src import db
 from src.__Parents.Model import Model
@@ -23,7 +25,7 @@ class Vacancy(db.Model, Model):
 
     vacancy_offers = relationship("VacancyOffer")
     vacancy_comments = relationship("VacancyComment")
-    creation_date = db.Column(db.DateTime, default=datetime.utcnow())
+    creation_date = db.Column(db.DateTime(timezone=True), default=func.now())
     creator_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     creator = relationship("User")
 

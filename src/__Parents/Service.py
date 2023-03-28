@@ -1,7 +1,11 @@
 import base64
+from datetime import time
+import datetime
 from flask import make_response, jsonify
 import os
 from src import app
+from flask import request
+from datetime import datetime
 
 
 class Service:
@@ -14,6 +18,10 @@ class Service:
             return {'format': image_path.split('.')[-1],
                     'b64': str(base64_encoded_data.decode('utf-8')),
                     'filename': image_path}
+
+    @staticmethod
+    def get_date_time(date_time):
+        return date_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
 
     @staticmethod
     def response(success, obj, status_code) -> make_response:
