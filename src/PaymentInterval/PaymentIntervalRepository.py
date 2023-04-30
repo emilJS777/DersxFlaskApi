@@ -8,11 +8,13 @@ class PaymentIntervalRepository(IPaymentIntervalRepo):
         payment_interval: PaymentInterval = PaymentInterval()
         payment_interval.title = body['title']
         payment_interval.description = body['description']
+        payment_interval.price = body['price']
         payment_interval.save_db()
 
     def update(self, payment_interval: PaymentInterval, body: dict):
         payment_interval.title = body['title']
         payment_interval.description = body['description']
+        payment_interval.price = body['price']
         payment_interval.update_db()
 
     def delete(self, payment_interval: PaymentInterval):

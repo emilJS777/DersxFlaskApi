@@ -2,7 +2,7 @@ user_create_schema = {
     "type": "object",
     "properties": {
         "name": {"type": "string", "minLength": 3, "maxLength": 60},
-        "password": {"type": "string", "minLength": 6, "maxLength": 18},
+        "password": {"type": "string", "minLength": 6, "maxLength": 24},
         "first_name": {"type": "string", "minLength": 3, "maxLength": 60},
         "last_name": {"type": "string", "minLength": 3, "maxLength": 60},
         "date_birth": {"type": "string"},

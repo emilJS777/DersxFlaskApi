@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from sqlalchemy import func
 from sqlalchemy.orm import relationship
 from src import db
@@ -15,7 +13,7 @@ class Vacancy(db.Model, Model):
     title = db.Column(db.String(50), nullable=False)
     short_description = db.Column(db.String(600), nullable=False)
     long_description = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Numeric)
+    price = db.Column(db.Numeric(10, 2))
     rubric_id = db.Column(db.Integer, db.ForeignKey('rubric.id'))
     rubric = relationship("Rubric")
     categories = relationship("Category", secondary="vacancy_category")

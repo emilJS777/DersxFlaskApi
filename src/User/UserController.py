@@ -6,10 +6,12 @@ from flask import g
 from flask_expects_json import expects_json
 from .UserValidator import user_create_schema, user_update_schema
 from src.Auth.AuthMiddleware import AuthMiddleware
+from src.Email.EmailRepository import EmailRepository
+from src.Email.EmailSender import EmailSender
 
 
 class UserController(Controller):
-    user_service = UserService(UserRepository())
+    user_service = UserService(UserRepository(), EmailRepository(), EmailSender())
 
     @expects_json(user_create_schema)
     def post(self):

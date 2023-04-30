@@ -19,7 +19,7 @@ class MessageService(Service, Repository):
             'read': message.read,
             'creator_id': message.creator_id,
             'room_id': message.room_id,
-            'creation_date': message.creation_date
+            'creation_date': str(message.creation_date)
         }
 
         self.socketio.send(emit_name='message', data=body_mess, user_id=body['user_id'])
@@ -37,7 +37,7 @@ class MessageService(Service, Repository):
             'edited': new_message.edited,
             'room_id': new_message.room_id,
             'creator_id': new_message.creator_id,
-            'creation_date': message.creation_date
+            'creation_date': str(message.creation_date)
         }
         self.socketio.send(emit_name='message_update', data=new_mess_body, user_id=new_message.addresser_id)
         return self.response_updated('сообщение обновлено')

@@ -55,6 +55,7 @@ class VacancyService(Service, Repository):
             "rubric": self.get_dict_items(vacancy.rubric),
             "categories": self.get_array_items(vacancy.categories),
             "payment_interval_id": vacancy.payment_interval_id,
+            "payment_interval": self.get_dict_items(vacancy.payment_interval),
             "creation_date": vacancy.creation_date,
             "creator_id": vacancy.creator_id,
             'vacancy_offers_count': len(vacancy.vacancy_offers),

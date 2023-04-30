@@ -18,7 +18,6 @@ class UserRepository(Repository, IUserRepo):
         user.password_hash = generate_password_hash(body['password'])
         user.first_name = body['first_name'].title()
         user.last_name = body['last_name'].title()
-        user.email_address = body['email_address']
         user.date_birth = body['date_birth'].split('T')[0]
         user.region = body['region']
         user.gender_id = body['gender_id']
@@ -49,9 +48,6 @@ class UserRepository(Repository, IUserRepo):
         if body.get('image_path'):
             user.image_path = body['image_path']
 
-        if body.get('email_address'):
-            user.email_address = body['email_address']
-
         if body.get('gender_id'):
             user.gender_id = body['gender_id']
 
@@ -75,10 +71,6 @@ class UserRepository(Repository, IUserRepo):
 
     def get_by_name(self, name: str) -> User:
         user = self.user.query.filter_by(name=name).first()
-        return user
-
-    def get_by_email_address_exclude_id(self, user_id: int, email_address: str):
-        user = self.user.query.filter(self.user.id != user_id, self.user.email_address == email_address).first()
         return user
 
     def get_by_name_exclude_id(self, user_id: int, name: str) -> dict:

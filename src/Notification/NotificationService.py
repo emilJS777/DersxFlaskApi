@@ -34,7 +34,7 @@ class NotificationService(Service, Repository):
                         'name': notification.creator.name,
                         'first_name': notification.creator.first_name,
                         'last_name': notification.creator.last_name,
-                        'email_address': notification.creator.email_address,
+                        # 'email': self.get_dict_items(notification.creator.email),
                         'role_id': notification.creator.role_id,
                         'gender': self.get_dict_items(notification.creator.gender),
                         'image': self.get_dict_items(notification.creator.image) if notification.creator.image else None

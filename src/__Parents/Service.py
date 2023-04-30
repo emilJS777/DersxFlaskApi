@@ -6,9 +6,25 @@ import os
 from src import app
 from flask import request
 from datetime import datetime
+import random
+import string
 
 
 class Service:
+    # RANDOM CODE
+    @staticmethod
+    def generate_random_code(length=40, uppercase=True, lowercase=True, numbers=True):
+        ticket_code = ''
+
+        if uppercase:
+            ticket_code += string.ascii_uppercase
+        if lowercase:
+            ticket_code += string.ascii_lowercase
+        if numbers:
+            ticket_code += string.digits
+
+        return ''.join(random.choice(ticket_code) for i in range(length))
+
     @staticmethod
     def get_encode_image(image_path: str, dir_path: str or None = None):
         # CONVERT TO BASE64 AND SEND RESPONSE

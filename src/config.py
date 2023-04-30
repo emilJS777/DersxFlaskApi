@@ -7,6 +7,7 @@ from datetime import datetime
 import logging
 from flask_cors import CORS
 from flask_socketio import SocketIO
+from flask_mail import Mail
 
 
 app = Flask(__name__, static_folder='../files')
@@ -45,5 +46,17 @@ app.config["USER_IMAGE_UPLOADS"] = 'files/user_images'
 app.config["SERVICE_IMAGE_UPLOADS"] = 'files/service_images'
 app.config["PUBLICATION_IMAGE_UPLOADS"] = 'files/publication_images'
 app.config["IMAGE_UPLOADS"] = 'files/images'
+app.config["LANGS"] = 'files/langs'
 
+# MAIL CONFIG
+app.config['MAIL_SERVER'] = 'smtp.mail.ru'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'test-test-9292@mail.ru'
+app.config['MAIL_PASSWORD'] = 'nHzYGRmhSv41y5YE3VCD'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
+
+# FRONT
+app.config['FRONT_LINK'] = 'http://127.0.0.1:8080'
 

@@ -105,7 +105,7 @@ class FriendService(Service, Repository):
                 'name': user.name,
                 'first_name': user.first_name,
                 'last_name': user.last_name,
-                'email_address': user.email_address,
+                'email': self.get_dict_items(user.email),
                 'role_id': user.role_id,
                 'gender': self.get_dict_items(user.gender),
                 'image': self.get_dict_items(user.image) if user.image else None

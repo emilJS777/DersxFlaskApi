@@ -1,0 +1,350 @@
+{
+  "general": {
+    "home": "home",
+    "vacancies": "vacancies",
+    "users": "users",
+    "notifications": "notifications",
+    "messages": "messages",
+
+    "sign_out": "sign out",
+    "sign_in": "sign in",
+    "sign_up": "sign up",
+
+    "publish": "publish",
+    "edit": "edit",
+    "delete": "delete",
+    "comments": "comments",
+    "likes": "likes",
+    "did_you_like": "did you like",
+    "commentate": "commentate",
+    "comment_on_this_post": "comment on this post",
+    "comment_confirm": "create comment ?",
+    "comment_edit": {
+      "title": "edit comment",
+      "confirm": "do you want to update the comment ?"
+    },
+    "comment_delete": {
+      "confirm": "do you really want to delete the comment ?"
+    },
+    "published": "published",
+    "search": "search",
+
+    "categories": "categories",
+    "rubric": "rubric",
+    "payment_interval": "payment interval",
+    "online": "online",
+    "back": "back",
+
+    "skills": "skills",
+    "tags": "tags",
+
+    "dram": "dram",
+
+    "redactor": "edit",
+    "update": "update",
+    "create": "create",
+    "save": "save",
+    "cancel": "cancel",
+    "choose": "choose",
+    "confirm": "confirm",
+    "send": "send",
+    "look": "look",
+    "ok": "OK",
+    "accept": "accept",
+    "reject": "reject",
+    "nothing_found": "nothing found",
+    "see_more": "see more"
+  },
+
+  "home": {
+    "new_vacancies": {
+      "title": "new vacancies",
+      "button": "see all"
+    },
+    "publication": {
+      "confirm_delete": "are you sure you want to delete the post ?",
+      "create": {
+        "confirm_create": "create a post ?",
+        "form": {
+          "title": "create publication",
+          "description": "description"
+        }
+      },
+      "menu": {
+        "all": "all",
+        "my_posts": "my posts",
+        "liked": "liked"
+      }
+    }
+  },
+
+  "vacancies": {
+    "confirm_delete": "are you sure you want to delete the job ?",
+    "filter": {
+      "rubric": {
+        "description": "your desired search rubric"
+      },
+      "search": {
+        "description": "search by name or description"
+      },
+      "categories": {
+        "description": "select the categories you are interested"
+      },
+      "payment_interval": {
+        "description": "select the desired payment interval"
+      },
+      "create_vacancy": "create a vacancy"
+    },
+    "create": {
+      "title": "new vacancy",
+      "description": "desc rip tion",
+      "form": {
+        "title": {
+          "title": "title",
+          "description": "in this field you need to describe the name of the vacancy, it can be just the name of the specialization. 5 to 50 characters"
+        },
+        "short_description": {
+          "title": "shoet description",
+          "description": "This field is intended for the description of the vacancy which will be visible in the search page. 50 to 600 characters"
+        },
+        "long_description": {
+          "title": "long description",
+          "description": "This field contains a full job description. try to describe what difficulties the performer may have to face (if any). 50 to 4000 characters"
+        },
+        "rubric": {
+          "description": "select field of activity"
+        },
+        "category": {
+          "title": "select category",
+          "description": "selection is optional but preferred"
+        },
+        "price": {
+          "title": "price",
+          "description": "the price you are willing to pay to the contractor up to 1.000.000"
+        }
+      }
+    },
+
+    "edit": {
+      "title": "edit vacancy",
+      "description": "descrrrr"
+    },
+
+    "offers": "offers",
+    "more": "more",
+    "your_comment": {
+      "title": "your comment",
+      "description": "no more than 1500 characters",
+      "placeholder": "write how you feel about this project"
+    },
+    "offers_notfound": "offers not found",
+    "offer": {
+      "price": {
+        "title": "price for the service",
+        "placeholder": "max 1.000.000"
+      },
+      "description": {
+        "title": "describe the offer",
+        "description": "no less than 50 and no more than 2500 characters",
+        "placeholder": "describe your skills and abilities, try to describe why the customer should choose you..."
+      },
+      "confirm_create": "do you want to post an offer ?",
+      "confirm_delete": "do you really want to delete your offer ?",
+      "confirm_update": "do you really want to change the offer ?",
+      "send_offer": "send offer"
+    }
+  },
+
+  "users": {
+    "filter": {
+      "rubric": {
+        "description": "user rubric"
+      },
+      "search": {
+        "description": "write the user's first or/and last name"
+      },
+      "category": {
+        "description": "select the category which the user possesses"
+      }
+    }
+  },
+
+  "notifications": {
+    "no_notifications": "you don't have notifications",
+    "job_posting": "job posting",
+    "friend": {
+      "friend_request": "friend request",
+      "accepted": "now you are friends"
+    }
+  },
+
+  "message": {
+    "description": "expand your network of contacts. find them on the page",
+    "placeholder": "your message...",
+    "read": "read",
+    "edited": "edited",
+    "unread" : "unread",
+    "delete_messages": "delete messages",
+    "show_more": "show more",
+    "confirm_delete": "you want to delete all messages ?"
+  },
+
+  "profile": {
+    "photo": {
+      "change_photo": "change photo",
+      "confirm_change_photo": "do you want to change your profile photo to",
+      "confirm_delete": "are you sure you want to delete your profile photo ?"
+    },
+    "friend_request": {
+      "confirm_create": "send a friend request",
+      "confirm_cancel": "cancel friend request",
+      "confirm_delete": "remove user from friends"
+    },
+    "buttons": {
+      "send_message": "send a message",
+      "remove_from_friends": "remove from friends",
+      "add_friend": "add as friend",
+      "profile_settings": "profile settings",
+      "content_language": "content language"
+    },
+    "language_block": {
+      "title": "choose language"
+    },
+    "email": {
+      "not_confirmed": "не подтверждено"
+    },
+    "information": {
+      "personal_information": "personal information",
+      "online_since": "Online since",
+      "information": "information",
+      "friends": "friends",
+      "skills": "skills",
+      "experience": "experience",
+      "contacts": "contacts",
+      "about_me": "about me",
+      "section_empty": "this section is empty",
+      "not_specified": "not specified"
+    },
+    "skills_add": {
+      "confirm_delete": "do you really want to delete your skill ?",
+      "skills": {
+        "title": "add your skills",
+        "description": "Briefly write down your results, this may be possible with the programming language or program you are using as a tool. up to 120 characters"
+      },
+      "rubric": {
+        "description": "choose a rubric to make it easier to find you"
+      },
+      "category": {
+        "title": "choose the categories that suit you"
+      }
+    },
+    "experience_add":{
+      "confirm_delete": "do you really want to delete your work experience ?",
+      "title": {
+        "title": "title",
+        "description": "what was the name of the project you were doing"
+      },
+      "description": {
+        "title": "description",
+        "description": "you can also describe this project, what features the project had"
+      },
+      "link": {
+        "title": "link",
+        "description": "link to project or repository"
+      },
+      "skills_or_technologies": {
+        "title": "skills or technologies",
+        "description": "what skills or technologies did you use when working with this project"
+      },
+      "start_date": {
+        "title": "start date",
+        "description": "start date for this project"
+      },
+      "end_date": {
+        "title": "completion",
+        "description": "date of completion"
+      }
+    },
+    "contact": {
+      "confirm_delete": "are you sure you want to delete contact information ?",
+      "title": "contact",
+      "type": {
+        "title": "type",
+        "description": "specify the type of contact, it can be phone, skype or the like",
+        "placeholder": "phone"
+      },
+      "contact_information": {
+        "title": "contact Information",
+        "description": "write down your contact details. phone number or username, depending on which type you have chosen",
+        "placeholder": "(010) 123 123 123"
+      }
+    },
+    "about_me_add": {
+      "confirm_delete": "are you sure you want to delete information about you ?",
+      "title": "about me",
+      "description": {
+        "title": "a few words about myself",
+        "description": "at least 20 characters"
+      }
+    },
+    "profile_settings": {
+      "title": "personal data",
+      "description": "do not write down those fields that you do not want to change",
+      "user_name": {
+        "title": "username",
+        "description": "username must contain at least 6 and no more than 16 characters"
+      },
+      "email": {
+        "title": "email",
+        "description": "a link or code will be sent to your email to confirm your email."
+      },
+      "name": {
+        "title": "name"
+      },
+      "surname": {
+        "title": "surname"
+      },
+      "location": {
+        "title": "location",
+        "description": "choose your location",
+        "country": "Choose country",
+        "region": "Choose region"
+      },
+      "date_birth": {
+        "title": "select your date of birth"
+      },
+      "gender": {
+        "title": "your gender"
+      }
+    }
+  },
+  "pagination": {
+    "prev": "prev",
+    "next": "next"
+  },
+  "guest": {
+    "title": "Freelance web platform",
+    "description": "This Freelance online exchange is a place where you can add vacancies, offer your services, search for IT specialists and vacancies. Here you can expose your work experience, show your skills and abilities, and also engage in your publications. profile and become part of an actively growing network of freelancers on our platform!",
+    "user_name_or_email": "username or email address",
+    "password": {
+      "title": "password",
+      "description": "The password must contain at least 8 and no more than 32 characters"
+    },
+    "restore_password": {
+      "title": "restore password",
+      "email": {
+        "title": "email address",
+        "description": "we will send an email to password recovery email"
+      },
+      "restore": {
+        "new_password": {
+          "title": "new password",
+          "description": "The password must contain at least 8 and no more than 32 characters"
+        },
+        "repeat_password": {
+          "title": "repeat password"
+        }
+      }
+    }
+  }
+}

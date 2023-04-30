@@ -1,19 +1,30 @@
 from .IUserRepo import IUserRepo
 from flask_bcrypt import check_password_hash
+from flask import g
+
+from ..Email.EmailHtml import EmailHtml
+from ..Email.IEmaiRepo import IEmailRepo
+from ..Email.IEmailSender import IEmailSender
 from ..__Parents.Repository import Repository
 from ..__Parents.Service import Service
 
 
 class UserService(Service, Repository):
-    def __init__(self, user_repository: IUserRepo):
+    def __init__(self, user_repository: IUserRepo, email_repository: IEmailRepo, email_sender: IEmailSender):
         self._user_repository: IUserRepo = user_repository
+        self.email_repository: IEmailRepo = email_repository
+        self.email_sender: IEmailSender = email_sender
 
     # CREATE
     def create(self, body: dict) -> dict:
         if self._user_repository.get_by_name(body['name']):
             return self.response_conflict('имя пользователя существует в системе')
 
+        if self.email_repository.get_by_address(address=body['email_address']):
+            return self.response_conflict('адрес эл. почты существует в системе')
+
         user = self._user_repository.create(body=body)
+        self.email_repository.create(user_id=user.id, body=body)
         return self.response_created('пользователь создан')
 
     # UPDATE
@@ -24,8 +35,14 @@ class UserService(Service, Repository):
         if body.get('name') and self._user_repository.get_by_name_exclude_id(user_id, body['name']):
             return self.response_conflict('имя пользователя существует в системе')
 
-        if body.get('email_address') and self._user_repository.get_by_email_address_exclude_id(user_id, body['email_address']):
-            return self.response_conflict('электронная почта существует в системе')
+        if body.get('email_address') and self.email_repository.get_by_address_exclude_user_id(user_id, body['email_address']):
+            return self.response_conflict('адрес эл. почты существует в системе')
+
+        if body.get('email_address'):
+            self.email_repository.update(email=g.user.email, body=body)
+            code = self.generate_random_code()
+            self.email_repository.update_activation_code(code=code)
+            self.email_sender.send(addresses=[body['email_address']], header='подтверждения эл. почты', html=EmailHtml.email_activation(code))
 
         self._user_repository.update(user_id, body)
         return self.response_updated('данные пользователя успешно обновлены')
@@ -54,7 +71,7 @@ class UserService(Service, Repository):
             'name': user.name,
             'first_name': user.first_name,
             'last_name': user.last_name,
-            'email_address': user.email_address,
+            'email': self.get_dict_items(user.email),
             'date_birth': user.date_birth,
             'region': user.region,
             'role_id': user.role_id,
@@ -86,7 +103,7 @@ class UserService(Service, Repository):
                 'name': user.name,
                 'first_name': user.first_name,
                 'last_name': user.last_name,
-                'email_address': user.email_address,
+                'email': self.get_dict_items(user.email),
                 'role_id': user.role_id,
                 'gender': self.get_dict_items(user.gender),
                 'image': self.get_dict_items(user.image) if user.image else None,

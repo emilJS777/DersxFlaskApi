@@ -42,7 +42,7 @@ class AuthService(Service, Repository):
             'first_name': g.user.first_name,
             'last_name': g.user.last_name,
             'region': g.user.region,
-            'email_address': g.user.email_address,
+            'email': self.get_dict_items(g.user.email),
             'date_birth': g.user.date_birth,
             'role_id': g.user.role_id,
             'image': self.get_encode_image(g.user.image.filename) if g.user.image else None,
