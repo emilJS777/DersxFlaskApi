@@ -1,4 +1,5 @@
 {
+  "lang": "eng",
   "general": {
     "home": "home",
     "vacancies": "vacancies",
@@ -7,6 +8,7 @@
     "messages": "messages",
 
     "sign_out": "sign out",
+    "sign_out_confirm": "do you want to log out of your account ?",
     "sign_in": "sign in",
     "sign_up": "sign up",
 
@@ -53,7 +55,12 @@
     "accept": "accept",
     "reject": "reject",
     "nothing_found": "nothing found",
-    "see_more": "see more"
+    "see_more": "see more",
+
+    "file": {
+      "format_validate": "wrong file format",
+      "size_validate": "file size should not exceed 1mb"
+    }
   },
 
   "home": {
@@ -203,6 +210,9 @@
     "buttons": {
       "send_message": "send a message",
       "remove_from_friends": "remove from friends",
+      "cancel_friend_request": "cancel friend request",
+      "accept_friendship": "accept friendship",
+      "decline_friend_request": "decline friend request",
       "add_friend": "add as friend",
       "profile_settings": "profile settings",
       "content_language": "content language"

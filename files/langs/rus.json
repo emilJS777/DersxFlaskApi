@@ -1,4 +1,5 @@
 {
+  "lang": "rus",
   "general": {
     "home": "главная",
     "vacancies": "вакансии",
@@ -7,6 +8,7 @@
     "messages": "сообщения",
 
     "sign_out": "выйти из аккаунта",
+    "sign_out_confirm": "вы хотите выйти из аккаунта ?",
     "sign_in": "логин",
     "sign_up": "регистрация",
 
@@ -54,7 +56,12 @@
     "accept": "принять",
     "reject": "отклонить",
     "nothing_found": "ничего не найдено",
-    "see_more": "посмотреть еще"
+    "see_more": "посмотреть еще",
+
+    "file": {
+      "format_validate": "не верный формат файла",
+      "size_validate": "размер файла не должен превышать 1мб"
+    }
   },
 
   "home": {
@@ -206,6 +213,9 @@
     "buttons": {
       "send_message": "отправить сообщение",
       "remove_from_friends": "удалить из друзей",
+      "cancel_friend_request": "отменить запрос дружбы",
+      "accept_friendship": "принять дружбу",
+      "decline_friend_request": "отклонить запрос дружбы",
       "add_friend": "добавить в друзья",
       "profile_settings": "настройки профиля",
       "content_language": "язык контента"
