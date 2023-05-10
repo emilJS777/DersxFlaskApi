@@ -7,11 +7,17 @@ class RubricRepository(IRubricRepo):
     def create(self, body: dict):
         rubric = Rubric()
         rubric.title = body['title']
+        rubric.title_arm = body['title_arm']
+        rubric.title_rus = body['title_rus']
+        rubric.title_eng = body['title_eng']
         rubric.description = body['description']
         rubric.save_db()
 
     def update(self, rubric: Rubric, body: dict):
         rubric.title = body['title']
+        rubric.title_arm = body['title_arm']
+        rubric.title_rus = body['title_rus']
+        rubric.title_eng = body['title_eng']
         rubric.description = body['description']
         rubric.update_db()
 

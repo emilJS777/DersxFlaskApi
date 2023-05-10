@@ -7,12 +7,18 @@ class CategoryRepository(ICategoryRepo):
     def create(self, body: dict):
         category = Category()
         category.title = body['title']
+        category.title_arm = body['title_arm']
+        category.title_eng = body['title_eng']
+        category.title_rus = body['title_rus']
         category.description = body['description']
         category.rubric_id = body['rubric_id']
         category.save_db()
 
     def update(self, category: Category, body: dict):
         category.title = body['title']
+        category.title_arm = body['title_arm']
+        category.title_eng = body['title_eng']
+        category.title_rus = body['title_rus']
         category.description = body['description']
         category.update_db()
 

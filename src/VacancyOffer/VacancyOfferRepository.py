@@ -21,7 +21,8 @@ class VacancyOfferRepository(IVacancyOfferRepo):
         vacancy_offer.update_db()
 
     def delete(self, vacancy_offer: VacancyOffer):
-        vacancy_offer.nutification.delete_db()
+        if vacancy_offer.nutification:
+            vacancy_offer.nutification.delete_db()
         vacancy_offer.delete_db()
 
     def delete_all(self, vacancy_id: int):

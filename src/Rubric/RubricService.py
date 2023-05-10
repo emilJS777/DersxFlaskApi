@@ -33,6 +33,9 @@ class RubricService(Service, Repository):
         return self.response_ok({
             'id': rubric.id,
             'title': rubric.title,
+            'title_eng': rubric.title_eng,
+            'title_rus': rubric.title_rus,
+            'title_arm': rubric.title_arm,
             'description': rubric.description
         })
 

@@ -20,3 +20,4 @@ class Model:
         db.session.commit()
 
 
+
