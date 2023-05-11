@@ -25,28 +25,28 @@ class ServiceService(Service, Repository):
     def update(self, service_id: int, body: dict) -> dict:
         service = self.service_repository.get_by_id(service_id)
         if not service or not service.creator_id == g.user_id:
-            return self.response_updated('услуга не найдена')
+            return self.response_updated(msg_eng='', msg_rus='', msg_arm='')
         self.service_repository.update(
             service=service,
             body=body,
             categories=self.category_repository.get_all(ids=body['category_ids']))
-        return self.response_updated('услуга успешно обновлена')
+        return self.response_updated(msg_eng='', msg_rus='', msg_arm='')
 
     def delete(self, service_id: int) -> dict:
         service = self.service_repository.get_by_id(service_id)
         if not service or not service.creator_id == g.user_id:
-            return self.response_updated('услуга не найдена')
+            return self.response_updated(msg_eng='', msg_rus='', msg_arm='')
 
         if service.image:
             self.image_repository.delete(service.image)
 
         self.service_repository.delete(service)
-        return self.response_deleted('услуга успешно удалена')
+        return self.response_deleted(msg_eng='', msg_rus='', msg_arm='')
 
     def get_by_id(self, service_id: int) -> dict:
         service = self.service_repository.get_by_id(service_id)
         if not service:
-            return self.response_updated('услуга не найдена')
+            return self.response_updated(msg_eng='', msg_rus='', msg_arm='')
         return self.response_ok({
             'id': service.id,
             'title': service.title,

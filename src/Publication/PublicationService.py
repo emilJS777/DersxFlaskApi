@@ -1,9 +1,7 @@
-import os
 from src.Image.IImageRepo import IImageRepo
 from .IPublicationRepo import IPublicationRepo
 from ..__Parents.Repository import Repository
 from ..__Parents.Service import Service
-from src import app
 
 
 class PublicationService(Service, Repository):
@@ -13,31 +11,44 @@ class PublicationService(Service, Repository):
 
     def create(self, body: dict) -> dict:
         publication = self.publication_repository.create(body)
-        return self.response_ok({"id": publication.id, "msg": "публикация успешно создана"})
+        return self.response_created(msg_rus="публикация успешно создана",
+                                     msg_eng="publication successfully created",
+                                     msg_arm="հրապարակումը հաջողությամբ ստեղծվաց է",
+                                     obj_id=publication.id)
 
     def update(self, publication_id: int, body: dict) -> dict:
         publication = self.publication_repository.get_by_id(publication_id)
         if not publication:
-            return self.response_not_found('публикация не найдена')
+            return self.response_not_found(msg_rus='публикация не найдена',
+                                           msg_arm='հրապարակումը չի գտնվել',
+                                           msg_eng='publication not found')
 
         self.publication_repository.update(publication=publication, body=body)
-        return self.response_updated('публикация успешно обновлена')
+        return self.response_updated(msg_rus='публикация успешно обновлена',
+                                     msg_eng='publication successfully updated',
+                                     msg_arm='հրապարակումը թարմացվել է')
 
     def delete(self, publication_id: int) -> dict:
         publication = self.publication_repository.get_by_id(publication_id)
         if not publication:
-            return self.response_not_found('публикация не найдена')
+            return self.response_not_found(msg_rus='публикация не найдена',
+                                           msg_arm='հրապարակումը չի գտնվել',
+                                           msg_eng='publication not found')
 
         if publication.image:
             self.image_repository.delete(publication.image)
 
         self.publication_repository.delete(publication)
-        return self.response_deleted('публикация успешно удалена')
+        return self.response_deleted(msg_rus='публикация успешно удалена',
+                                     msg_eng='publication successfully deleted',
+                                     msg_arm='հրապարակումը հաջողությամբ ջնջվել է')
 
     def get_by_id(self, publication_id: int) -> dict:
         publication = self.publication_repository.get_by_id(publication_id)
         if not publication:
-            return self.response_not_found('публикация не найдена')
+            return self.response_not_found(msg_rus='публикация не найдена',
+                                           msg_arm='հրապարակումը չի գտնվել',
+                                           msg_eng='publication not found')
         return self.response_ok({
             'id': publication.id,
             'description': publication.description,

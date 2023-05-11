@@ -20,15 +20,21 @@ class ImageService(Service):
             company_id=company_id,
             group_id=group_id)
 
-        return self.response_created('данные загружены')
+        return self.response_created(msg_rus='данные загружены',
+                                     msg_arm='տվյալները բեռնված են',
+                                     msg_eng='data loaded')
 
     def delete(self, filename: str = None) -> dict:
         image = self.image_repository.get(filename=filename)
         if not image or not image.creator_id == g.user_id:
-            return self.response_not_found('изображение не найдено')
+            return self.response_not_found(msg_rus='изображение не найдено',
+                                           msg_eng='image not found',
+                                           msg_arm='պատկերը չի գտնվել')
 
         self.image_repository.delete(image)
-        return self.response_deleted('изображение удалено')
+        return self.response_deleted(msg_rus='изображение удалено',
+                                     msg_eng='image removed',
+                                     msg_arm='պատկերը հեռացված է')
 
     def get(self, filename: str):
         return send_file('../'+app.config["IMAGE_UPLOADS"]+'/'+filename,

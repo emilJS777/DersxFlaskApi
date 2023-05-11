@@ -15,18 +15,18 @@ class ServiceImageService(Service):
     def create(self, service_id: int, image) -> dict:
         service = self.service_repository.get_by_id(service_id)
         if not service or not  service.creator_id == g.user_id:
-            return self.response_not_found('услуга не найдена')
+            return self.response_not_found(msg_eng='', msg_rus='', msg_arm='')
 
         filename = f"{g.user_id}{datetime.utcnow().strftime('%B:%d:%Y:%H:%M:%S')}{image.filename}"
         image.save(os.path.join(app.config["SERVICE_IMAGE_UPLOADS"], filename))
         self.service_image_repository.create(filename=filename, service_id=service_id)
-        return self.response_created('данные услуги успешно загружены')
+        return self.response_created(msg_eng='', msg_rus='', msg_arm='')
 
     def delete(self, service_id: int) -> dict:
         service = self.service_repository.get_by_id(service_id)
         if not service or not service.creator_id == g.user_id:
-            return self.response_not_found('услуга не найдена')
+            return self.response_not_found(msg_eng='', msg_rus='', msg_arm='')
 
         os.remove(app.config["SERVICE_IMAGE_UPLOADS"] + '/' + service.image.filename)
         self.service_image_repository.delete(service_image=service.image)
-        return self.response_deleted('картинка успешно удалена')
+        return self.response_deleted(msg_eng='', msg_rus='', msg_arm='')

@@ -10,17 +10,17 @@ class PublicationLikeService(Service):
 
     def create(self, body: dict) -> dict:
         self.publication_like_repository.create(body)
-        return self.response_created('лайк для публикации создано')
+        return self.response_created(msg_rus='', msg_arm='', msg_eng='')
 
     def delete(self, publication_id: int) -> dict:
         publication_like = self.publication_like_repository.get(publication_id=publication_id, user_id=g.user_id)
         if not publication_like:
-            return self.response_not_found('лайк для публикации не найдено')
+            return self.response_not_found(msg_rus='', msg_arm='', msg_eng='')
         self.publication_like_repository.delete(publication_like)
-        return self.response_deleted('лайк для публикации удалено')
+        return self.response_deleted(msg_rus='', msg_arm='', msg_eng='')
 
     def get(self, publication_id: int) -> dict:
         publication_like = self.publication_like_repository.get(publication_id=publication_id, user_id=g.user_id)
         if not publication_like:
-            return self.response_not_found()
+            return self.response_not_found(msg_eng='', msg_arm='', msg_rus='')
         return self.response_ok({'like': True})

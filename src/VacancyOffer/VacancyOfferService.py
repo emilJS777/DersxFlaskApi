@@ -14,30 +14,44 @@ class VacancyOfferService(Service, Repository):
 
     def create(self, body: dict) -> dict:
         if self.vacancy_offer_repository.get_by_vacancy_id_creator_id(vacancy_id=body['vacancy_id'], creator_id=g.user_id):
-            return self.response_conflict('в данной вакансии у вас уже есть предложение')
+            return self.response_conflict(msg_rus='в данной вакансии у вас уже есть предложение',
+                                          msg_eng='you already have an offer for this job',
+                                          msg_arm='դուք արդեն ունեք առաջարկ այս աշխատանքի համար')
         vacancy_offer = self.vacancy_offer_repository.create(body)
         # NOTIFICATION
         self.notification_repository.create(user_id=vacancy_offer.vacancy.creator_id, vacancy_offer_id=vacancy_offer.id)
-        return self.response_created('предложение успешно создано')
+        return self.response_created(msg_rus='предложение успешно создано',
+                                     msg_arm='առաջարկը հաջողությամբ ստեղծվեց',
+                                     msg_eng='offer successfully created')
 
     def update(self, vacancy_offer_id: int, body: dict) -> dict:
         vacancy_offer = self.vacancy_offer_repository.get_by_id(vacancy_offer_id)
         if not vacancy_offer or not vacancy_offer.creator_id == g.user_id:
-            return self.response_not_found('предложение не найдено')
+            return self.response_not_found(msg_rus='предложение не найдено',
+                                           msg_eng='offer not found',
+                                           msg_arm='առաջարկը չի գտնվել')
         self.vacancy_offer_repository.update(vacancy_offer=vacancy_offer, body=body)
-        return self.response_updated('предложение успешно обновлено')
+        return self.response_updated(msg_rus='предложение успешно обновлено',
+                                     msg_arm='առաջարկը հաջողությամբ թարմացվել է',
+                                     msg_eng='offer successfully updated')
 
     def delete(self, vacancy_offer_id: int) -> dict:
         vacancy_offer = self.vacancy_offer_repository.get_by_id(vacancy_offer_id)
         if not vacancy_offer or not vacancy_offer.creator_id == g.user_id:
-            return self.response_not_found('предложение не найдено')
+            return self.response_not_found(msg_rus='предложение не найдено',
+                                           msg_eng='offer not found',
+                                           msg_arm='առաջարկը չի գտնվել')
         self.vacancy_offer_repository.delete(vacancy_offer)
-        return self.response_deleted('предложение успешно удалено')
+        return self.response_deleted(msg_rus='предложение успешно удалено',
+                                     msg_arm='առաջարկը հաջողությամբ ջնջվեց',
+                                     msg_eng='offer successfully deleted')
 
     def get_by_id(self, vacancy_offer_id: int) -> dict:
         vacancy_offer = self.vacancy_offer_repository.get_by_id(vacancy_offer_id)
         if not vacancy_offer:
-            return self.response_not_found('предложение не найдено')
+            return self.response_not_found(msg_rus='предложение не найдено',
+                                           msg_eng='offer not found',
+                                           msg_arm='առաջարկը չի գտնվել')
         return self.response_ok({
             'id': vacancy_offer.id,
             'description': vacancy_offer.description,

@@ -11,28 +11,40 @@ class VacancyCommentService(Service, Repository):
 
     def create(self, body: dict) -> dict:
         self.vacancy_comment_repository.create(body)
-        return self.response_created('комментарий был успешно создан')
+        return self.response_created(msg_rus='комментарий был успешно создан',
+                                     msg_eng='comment was created successfully',
+                                     msg_arm='մեկնաբանությունը հաջողությամբ ստեղծվեց')
 
     def update(self, vacancy_comment_id: int, body: dict) -> dict:
         print(body)
         vacancy_comment = self.vacancy_comment_repository.get_by_id(vacancy_comment_id)
         if not vacancy_comment or not vacancy_comment.user_id == g.user_id:
-            return self.response_not_found('комментарий не был найден')
+            return self.response_not_found(msg_rus='комментарий не был найден',
+                                           msg_arm='մեկնաբանությունը չի գտնվել',
+                                           msg_eng='comment was not found')
 
         self.vacancy_comment_repository.update(vacancy_comment=vacancy_comment, body=body)
-        return self.response_updated('комментарий успешно обновлен')
+        return self.response_updated(msg_rus='комментарий успешно обновлен',
+                                     msg_eng='comment successfully updated',
+                                     msg_arm='մեկնաբանությունը հաջողությամբ թարմացվեց')
 
     def delete(self, vacancy_comment_id: int) -> dict:
         vacancy_comment = self.vacancy_comment_repository.get_by_id(vacancy_comment_id)
         if not vacancy_comment or not vacancy_comment.user_id == g.user_id:
-            return self.response_not_found('комментарий не был найден')
+            return self.response_not_found(msg_rus='комментарий не был найден',
+                                           msg_arm='մեկնաբանությունը չի գտնվել',
+                                           msg_eng='comment was not found')
         self.vacancy_comment_repository.delete(vacancy_comment)
-        return self.response_deleted('комментарий успешно удален')
+        return self.response_deleted(msg_rus='комментарий успешно удален',
+                                     msg_eng='comment successfully deleted',
+                                     msg_arm='մեկնաբանությունը հաջողությամբ ջնջվեց')
 
     def get_by_id(self, vacancy_comment_id: int) -> dict:
         vacancy_comment = self.vacancy_comment_repository.get_by_id(vacancy_comment_id)
         if not vacancy_comment:
-            return self.response_not_found('комментарие не найден')
+            return self.response_not_found(msg_rus='комментарий не был найден',
+                                           msg_arm='մեկնաբանությունը չի գտնվել',
+                                           msg_eng='comment was not found')
         return self.response_ok(self.get_dict_items(vacancy_comment))
 
     def get_all(self, page: int, per_page: int, vacancy_id: int) -> dict:

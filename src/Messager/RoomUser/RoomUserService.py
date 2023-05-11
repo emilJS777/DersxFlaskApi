@@ -10,9 +10,9 @@ class RoomUserService(Service):
     def hidden(self, room_id) -> dict:
         room_user = self.room_user_repository.get_by_id(room_id=room_id)
         self.room_user_repository.hidden(room_user=room_user)
-        return self.response_updated()
+        return self.response_updated(msg_eng='', msg_arm='', msg_rus='')
 
     def show_all(self) -> dict:
         rooms_user = self.room_user_repository.get_all()
         self.room_user_repository.show(rooms_user)
-        return self.response_updated()
+        return self.response_updated(msg_eng='', msg_arm='', msg_rus='')

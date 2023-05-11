@@ -10,28 +10,40 @@ class PublicationCommentService(Service):
 
     def create(self, body: dict) -> dict:
         self.publication_comment_repository.create(body)
-        return self.response_created('комментария успешно создано')
+        return self.response_created(msg_arm='комментария успешно создано',
+                                     msg_eng='comment successfully created',
+                                     msg_rus='մեկնաբանությունը հաջողությամբ ստեղծվեց')
 
     def update(self, publication_comment_id: int, body: dict) -> dict:
         publication_comment = self.publication_comment_repository.get_by_id(publication_comment_id)
         if not publication_comment or not publication_comment.creator_id == g.user_id:
-            return self.response_not_found('комментария не найдено')
+            return self.response_not_found(msg_rus='комментария не найдено',
+                                           msg_eng='comment not found',
+                                           msg_arm='մեկնաբանությունը չի գտնվել')
         self.publication_comment_repository.update(
             publication_comment=publication_comment,
             body=body)
-        return self.response_updated('комментария успешно обновлено')
+        return self.response_updated(msg_rus='комментария успешно обновлено',
+                                     msg_eng='comment successfully updated',
+                                     msg_arm='մեկնաբանությունը հաջողությամբ թարմացվել է')
 
     def delete(self, publication_comment_id: int) -> dict:
         publication_comment = self.publication_comment_repository.get_by_id(publication_comment_id)
         if not publication_comment or not publication_comment.creator_id == g.user_id:
-            return self.response_not_found('комментария не найдено')
+            return self.response_not_found(msg_rus='комментария не найдено',
+                                           msg_eng='comment not found',
+                                           msg_arm='մեկնաբանությունը չի գտնվել')
         self.publication_comment_repository.delete(publication_comment)
-        return self.response_deleted('комментария успешно удалено')
+        return self.response_deleted(msg_rus='комментария успешно удалено',
+                                     msg_arm='մեկնաբանությունը հաջողությամբ ջնջվել է',
+                                     msg_eng='comment successfully deleted')
 
     def get_by_id(self, publication_comment_id: int) -> dict:
         publication_comment = self.publication_comment_repository.get_by_id(publication_comment_id)
         if not publication_comment:
-            return self.response_not_found('комментария не найдено')
+            return self.response_not_found(msg_rus='комментария не найдено',
+                                           msg_eng='comment not found',
+                                           msg_arm='մեկնաբանությունը չի գտնվել')
         return self.response_ok({
             'id': publication_comment.id,
             'text': publication_comment.text})
@@ -53,3 +65,4 @@ class PublicationCommentService(Service):
                 'image': self.get_encode_image(publication_comment.creator.image.filename) if publication_comment.creator.image else None
             }
         } for publication_comment in publication_comments])
+

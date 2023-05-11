@@ -1,13 +1,10 @@
 import base64
-from datetime import time
-import datetime
-from flask import make_response, jsonify
 import os
-from src import app
-from flask import request
-from datetime import datetime
 import random
 import string
+from flask import make_response, jsonify
+from src import app
+from flask import request
 
 
 class Service:
@@ -45,11 +42,23 @@ class Service:
 
     # RESPONSES
     @staticmethod
-    def response_conflict(msg=None):
+    def response_conflict(msg_eng: str, msg_arm: str, msg_rus: str):
+        if request.headers.get('lang') == 'arm':
+            msg = msg_arm
+        elif request.headers.get('lang') == 'eng':
+            msg = msg_eng
+        else:
+            msg = msg_rus
         return Service.response(False, {'msg': msg or 'exist'}, 409)
 
     @staticmethod
-    def response_not_found(msg=None):
+    def response_not_found(msg_eng: str, msg_arm: str, msg_rus: str):
+        if request.headers.get('lang') == 'arm':
+            msg = msg_arm
+        elif request.headers.get('lang') == 'eng':
+            msg = msg_eng
+        else:
+            msg = msg_rus
         return Service.response(False, {'msg': msg or 'not found'}, 404)
 
     @staticmethod
@@ -57,11 +66,23 @@ class Service:
         return Service.response(False, {'msg': 'incorrect password'}, 403)
 
     @staticmethod
-    def response_created(msg=None):
-        return Service.response(True, {'msg': msg or 'successfully created'}, 201)
+    def response_created(msg_eng: str, msg_arm: str, msg_rus: str, obj_id: int = None):
+        if request.headers.get('lang') == 'arm':
+            msg = msg_arm
+        elif request.headers.get('lang') == 'eng':
+            msg = msg_eng
+        else:
+            msg = msg_rus
+        return Service.response(True, {'msg': msg or 'successfully created', 'id': obj_id}, 201)
 
     @staticmethod
-    def response_updated(msg=None):
+    def response_updated(msg_eng: str, msg_arm: str, msg_rus: str):
+        if request.headers.get('lang') == 'arm':
+            msg = msg_arm
+        elif request.headers.get('lang') == 'eng':
+            msg = msg_eng
+        else:
+            msg = msg_rus
         return Service.response(True, {'msg': msg or 'successfully updated'}, 200)
 
     @staticmethod
@@ -69,7 +90,13 @@ class Service:
         return Service.response(True, obj, 200)
 
     @staticmethod
-    def response_deleted(msg=None):
+    def response_deleted(msg_eng: str, msg_arm: str, msg_rus: str):
+        if request.headers.get('lang') == 'arm':
+            msg = msg_arm
+        elif request.headers.get('lang') == 'eng':
+            msg = msg_eng
+        else:
+            msg = msg_rus
         return Service.response(True, {'msg': msg or 'successfully deleted'}, 200)
 
     @staticmethod

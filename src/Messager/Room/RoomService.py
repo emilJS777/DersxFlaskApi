@@ -14,9 +14,13 @@ class RoomService(Service, Repository):
         room = self.room_repository.get_by_user_id(user_id)
         print(user_id)
         if not room:
-            return self.response_not_found('рум не найден')
+            return self.response_not_found(msg_rus='рум не найден',
+                                           msg_eng='room not found',
+                                           msg_arm='ռումը չի գտնվել')
         self.room_repository.delete(room)
-        return self.response_deleted('сообщения удалены')
+        return self.response_deleted(msg_rus='сообщения удалены',
+                                     msg_arm='հաղորդագրությունները ջնջված են',
+                                     msg_eng='messages deleted')
 
     def get(self, user_id: int) -> dict:
         room = self.room_repository.get_by_user_id(user_id)

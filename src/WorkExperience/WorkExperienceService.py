@@ -11,28 +11,40 @@ class WorkExperienceService(Service, Repository):
 
     def create(self, body: dict) -> dict:
         self.work_experience_repository.create(body)
-        return self.response_created('опыт работы было создано')
+        return self.response_created(msg_rus='опыт работы было создано',
+                                     msg_eng='work experience has been created',
+                                     msg_arm='աշխատանքային փորձը ստեղծվել է')
 
     def update(self, work_experience_id: int, body: dict) -> dict:
         work_experience = self.work_experience_repository.get_by_id(work_experience_id=work_experience_id)
         if not work_experience or not work_experience.user_id == g.user_id:
-            return self.response_not_found('опыт работы не найдено ')
+            return self.response_not_found(msg_rus='опыт работы не найдено',
+                                           msg_arm='աշխատանքային փորձը չի գտնվել',
+                                           msg_eng='work experience not found')
 
         self.work_experience_repository.update(work_experience=work_experience, body=body)
-        return self.response_updated('опыт работы было обновлено')
+        return self.response_updated(msg_rus='опыт работы было обновлено',
+                                     msg_arm='աշխատանքային փորձը թարմացվել է',
+                                     msg_eng='work experience updated')
 
     def delete(self, work_experience_id: int) -> dict:
         work_experience = self.work_experience_repository.get_by_id(work_experience_id=work_experience_id)
         if not work_experience or not work_experience.user_id == g.user_id:
-            return self.response_not_found('опыт работы не найдено ')
+            return self.response_not_found(msg_rus='опыт работы не найдено',
+                                           msg_arm='աշխատանքային փորձը չի գտնվել',
+                                           msg_eng='work experience not found')
 
         self.work_experience_repository.delete(work_experience)
-        return self.response_deleted('опыт работы было удалено')
+        return self.response_deleted(msg_rus='опыт работы было удалено',
+                                     msg_arm='աշխատանքային փորձը ջնջված է',
+                                     msg_eng='work experience deleted')
 
     def get_by_id(self, work_experience_id: int) -> dict:
         work_experience = self.work_experience_repository.get_by_id(work_experience_id=work_experience_id)
         if not work_experience:
-            return self.response_not_found('опыт работы не найдено ')
+            return self.response_not_found(msg_rus='опыт работы не найдено',
+                                           msg_arm='աշխատանքային փորձը չի գտնվել',
+                                           msg_eng='work experience not found')
 
         return self.response_ok(self.get_dict_items(work_experience))
 

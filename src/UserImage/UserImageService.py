@@ -18,16 +18,22 @@ class UserImageService(Service):
         image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
         self.user_image_repository.create(filename=filename)
         self.user_repository.update(g.user_id, body={'image_path': filename})
-        return self.response_created('фото успешно загружено')
+        return self.response_created(msg_rus='фото успешно загружено',
+                                     msg_eng='photo uploaded successfully',
+                                     msg_arm='լուսանկարը հաջողությամբ վերբեռնվեց')
 
     def delete(self, filename: str) -> dict:
         user_image = self.user_image_repository.get_by_filename(filename)
         if not user_image or not user_image.user_id == g.user_id:
-            return self.response_not_found('фото не найдено')
+            return self.response_not_found(msg_rus='фото не найдено',
+                                           msg_arm='լուսանկարը չի գտնվել',
+                                           msg_eng='photo not found')
 
         self.user_image_repository.delete(user_image)
         os.remove(app.config["IMAGE_UPLOADS"] + '/' + filename)
-        return self.response_deleted('фото пользователя удаленно')
+        return self.response_deleted(msg_rus='фото пользователя удалено',
+                                     msg_eng='photo removed',
+                                     msg_arm='լուսանկարը հեռացվել է')
 
     def get_by_filename(self, filename: str) -> dict:
         return self.response_ok(self.get_encode_image(filename))

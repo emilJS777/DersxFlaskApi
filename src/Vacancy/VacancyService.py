@@ -20,30 +20,42 @@ class VacancyService(Service, Repository):
     def create(self, body: dict) -> dict:
         categories: list = self.category_repository.get_all(ids=body['category_ids'])
         self.vacancy_repository.create(body=body, categories=categories)
-        return self.response_created('вакансия создана')
+        return self.response_created(msg_rus='вакансия создана',
+                                     msg_arm='աշխատատեղը ստեղծվել է',
+                                     msg_eng='vacancy created')
 
     def update(self, vacancy_id: int, body: dict) -> dict:
         vacancy = self.vacancy_repository.get_by_id(vacancy_id)
         if not vacancy:
-            return self.response_not_found('вакансия не найдена')
+            return self.response_not_found(msg_rus='вакансия не найдена',
+                                           msg_eng='job not found',
+                                           msg_arm='աշխատատեղը չի գտնվել')
         categories: list = self.category_repository.get_all(ids=body['category_ids'])
         self.vacancy_repository.update(vacancy=vacancy, body=body, categories=categories)
-        return self.response_updated('вакансия обновлена')
+        return self.response_updated(msg_rus='вакансия обновлена',
+                                     msg_arm='աշխատատեղը թարմացվել է',
+                                     msg_eng='vacancy updated')
 
     def delete(self, vacancy_id: int) -> dict:
         vacancy = self.vacancy_repository.get_by_id(vacancy_id)
         if not vacancy or not vacancy.creator_id == g.user_id:
-            return self.response_not_found('вакансия не найдена')
+            return self.response_not_found(msg_rus='вакансия не найдена',
+                                           msg_eng='job not found',
+                                           msg_arm='աշխատատեղը չի գտնվել')
 
         self.vacancy_offer_repository.delete_all(vacancy_id)
         self.vacancy_comment_repository.delete_all(vacancy_id)
         self.vacancy_repository.delete(vacancy)
-        return self.response_deleted('вакансия удалена')
+        return self.response_deleted(msg_rus='вакансия удалена',
+                                     msg_arm='աշխատատեղը ջնջված է',
+                                     msg_eng='vacancy removed')
 
     def get_by_id(self, vacancy_id: int) -> dict:
         vacancy = self.vacancy_repository.get_by_id(vacancy_id)
         if not vacancy:
-            return self.response_not_found('вакансия не найдена')
+            return self.response_not_found(msg_rus='вакансия не найдена',
+                                           msg_eng='job not found',
+                                           msg_arm='աշխատատեղը չի գտնվել')
         vacancy.categories = vacancy.categories
         vacancy.payment_interval = vacancy.payment_interval
         return self.response_ok({

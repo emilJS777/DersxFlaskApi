@@ -18,25 +18,35 @@ class UserService(Service, Repository):
     # CREATE
     def create(self, body: dict) -> dict:
         if self._user_repository.get_by_name(body['name']):
-            return self.response_conflict('имя пользователя существует в системе')
+            return self.response_conflict(msg_rus='имя пользователя существует в системе',
+                                          msg_eng='username exists on the system',
+                                          msg_arm='օգտանունը գոյություն ունի համակարգում')
 
         if self.email_repository.get_by_address(address=body['email_address']):
-            return self.response_conflict('адрес эл. почты существует в системе')
+            return self.response_conflict(msg_rus='адрес эл. почты существует в системе',
+                                          msg_arm='էլ. փոստը գոյություն ունի համակարգում',
+                                          msg_eng='email address mail exists in the system')
 
         user = self._user_repository.create(body=body)
         self.email_repository.create(user_id=user.id, body=body)
-        return self.response_created('пользователь создан')
+        return self.response_created(msg_rus='пользователь создан',
+                                     msg_eng='user created',
+                                     msg_arm='օգտագործողը ստեղծվել է')
 
     # UPDATE
     def update(self, user_id: int, body: dict) -> dict:
         if not self._user_repository.get_by_id(user_id):
-            return self.response_not_found('пользователь не найден')
+            return self.response_not_found(msg_rus='пользователь не найден', msg_arm='oգտագործողը չի գտնվել', msg_eng='user is not found')
 
         if body.get('name') and self._user_repository.get_by_name_exclude_id(user_id, body['name']):
-            return self.response_conflict('имя пользователя существует в системе')
+            return self.response_conflict(msg_rus='имя пользователя существует в системе',
+                                          msg_eng='username exists on the system',
+                                          msg_arm='օգտանունը գոյություն ունի համակարգում')
 
         if body.get('email_address') and self.email_repository.get_by_address_exclude_user_id(user_id, body['email_address']):
-            return self.response_conflict('адрес эл. почты существует в системе')
+            return self.response_conflict(msg_rus='адрес эл. почты существует в системе',
+                                          msg_arm='էլ. փոստը գոյություն ունի համակարգում',
+                                          msg_eng='email address mail exists in the system')
 
         if body.get('email_address'):
             self.email_repository.update(email=g.user.email, body=body)
@@ -45,26 +55,28 @@ class UserService(Service, Repository):
             self.email_sender.send(addresses=[body['email_address']], header='подтверждения эл. почты', html=EmailHtml.email_activation(code))
 
         self._user_repository.update(user_id, body)
-        return self.response_updated('данные пользователя успешно обновлены')
+        return self.response_updated(msg_rus='данные пользователя успешно обновлены',
+                                     msg_eng='user data updated successfully',
+                                     msg_arm='օգտվողի տվյալները հաջողությամբ թարմացվել են')
 
     # DELETE
     def delete(self, user_id: int, body: dict):
         user = self._user_repository.get_by_id(user_id)
 
         if not user:
-            return self.response_not_found('пользователь не найден')
+            return self.response_not_found(msg_rus='пользователь не найден', msg_arm='oգտագործողը չի գտնվել', msg_eng='user is not found')
 
         if not check_password_hash(user['password_hash'], body['password']):
             return self.response_invalid_password()
 
         self._user_repository.delete(user_id)
-        return self.response_deleted('пользователь удален')
+        return self.response_deleted(msg_rus='пользователь удален', msg_arm='օգտատերը ջնջված է', msg_eng='user deleted')
 
     # GET BY ID
     def get_by_id(self, user_id: int) -> dict:
         user = self._user_repository.get_by_id(user_id)
         if not user:
-            return self.response_not_found('пользователь не найден')
+            return self.response_not_found(msg_rus='пользователь не найден', msg_arm='oգտագործողը չի գտնվել', msg_eng='user is not found')
 
         return self.response_ok({
             'id': user.id,

@@ -33,41 +33,57 @@ class FriendService(Service, Repository):
             friend = self.friend_repository.create(body=body)
             self.notification_repository.create(user_id=body['user_id'], friend_id=friend.id)
 
-            return self.response_created('запрос на дружбу отправлен')
+            return self.response_created(msg_rus='запрос на дружбу отправлен',
+                                         msg_arm='ուղարկվել է ընկերության հարցում',
+                                         msg_eng='friend request sent')
         else:
-            return self.response_conflict('запрос на дружбу уже был создан !')
+            return self.response_conflict(msg_rus='запрос на дружбу уже был создан',
+                                          msg_eng='Friend request has already been created!',
+                                          msg_arm='Ընկերության հարցումն արդեն ստեղծվել է')
 
     def update(self, friend_id: int, user_id: int) -> dict:
         friend = self.friend_repository.get_by_id(friend_id) if friend_id else \
             self.friend_repository.get_by_user_id(user_id)
 
         if not friend:
-            return self.response_not_found('запрос на дружбу был отменен или не найден')
+            return self.response_not_found(msg_rus='запрос на дружбу был отменен или не найден',
+                                           msg_arm='ընկերոջ հարցումը չեղարկվել է կամ չի գտնվել',
+                                           msg_eng='friend request was canceled or not found')
 
         friend = self.friend_repository.update(friend)
         self.notification_repository.delete(friend_id=friend_id)
         # NOTIFICATION
         self.notification_repository.create(friend_id=friend.id, user_id=friend.creator_id)
-        return self.response_updated('теперь вы друзья!')
+        return self.response_updated(msg_rus='теперь вы друзья!',
+                                     msg_eng='now you are friends!',
+                                     msg_arm='այժմ դուք ընկերներ եք!')
 
     def delete(self, friend_id: int, user_id: int) -> dict:
         friend = self.friend_repository.get_by_id(friend_id) if friend_id else \
             self.friend_repository.get_by_user_id(user_id)
 
         if not friend:
-            return self.response_not_found('запрос на дружбу был отменен или не найден')
+            return self.response_not_found(msg_rus='запрос на дружбу был отменен или не найден',
+                                           msg_arm='ընկերոջ հարցումը չեղարկվել է կամ չի գտնվել',
+                                           msg_eng='friend request was canceled or not found')
         self.notification_repository.delete(friend_id=friend.id)
         self.friend_repository.delete(friend)
 
         if friend.confirmed:
-            return self.response_deleted('друг удален!')
+            return self.response_deleted(msg_rus='друг удален',
+                                         msg_arm='ընկերը ջնջված է',
+                                         msg_eng='friend deleted')
         else:
-            return self.response_deleted('запрос на дружбу отменен')
+            return self.response_deleted(msg_rus='запрос на дружбу отменен',
+                                         msg_eng='friend request canceled',
+                                         msg_arm='ընկերության հարցումը չեղարկվել է')
 
     def get_by_user_id(self, user_id: int) -> dict:
         friend = self.friend_repository.get_by_user_id(user_id)
         if not friend:
-            return self.response_not_found()
+            return self.response_not_found(msg_rus='пользователь не найден ',
+                                           msg_arm='user is not found',
+                                           msg_eng='oգտագործողը չի գտնվել')
         return self.response_ok(self.get_dict_items(friend))
 
     # def get_all_requests(self, page: int, per_page: int) -> dict:

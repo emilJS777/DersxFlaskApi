@@ -13,9 +13,11 @@ class NotificationService(Service, Repository):
     def delete(self, notification_id: int) -> dict:
         notification = self.notification_repository.get_by_id(notification_id)
         if not notification:
-            return self.response_not_found('уведомления не найдено')
+            return self.response_not_found(msg_rus='уведомления не найдено',
+                                           msg_arm='ծանուցումը չի գտնվել',
+                                           msg_eng='notice not found')
         self.notification_repository.delete(notification)
-        return self.response_deleted()
+        return self.response_deleted(msg_eng='', msg_rus='', msg_arm='')
 
     def get_by_id(self, notification_id: int) -> dict:
         notification = self.notification_repository.get_by_id(notification_id)
