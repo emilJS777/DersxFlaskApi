@@ -58,5 +58,5 @@ with app.app_context():
     mail = Mail(app)
 
     # FRONT
-    app.config['FRONT_LINK'] = 'http://127.0.0.1:8080'
+    app.config['FRONT_LINK'] = 'http://185.218.124.120:8080'
 

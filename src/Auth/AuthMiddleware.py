@@ -27,6 +27,7 @@ class AuthMiddleware(Service):
                 if auth:
                     g.user = auth.user
                     g.user_id = decode['user_id']
+                    g.admin = auth.user.admin
                     return f(*args, **kwargs)
             return AuthMiddleware.response_invalid_login(msg_rus='Неверное имя пользователя и / или пароль',
                                                          msg_arm='անվավեր օգտանուն և/կամ գաղտնաբառ',
@@ -34,19 +35,16 @@ class AuthMiddleware(Service):
 
         return decorated_function
 
-    # @staticmethod
-    # def check_authorize(f):
-    #     @wraps(f)
-    #     @jwt_required()
-    #     def decorated_function(*args, **kwargs):
-    #
-    #         auth = AuthMiddleware.__auth_repository.get_by_user_id(user_id=get_jwt_identity())
-    #         if auth['access_token'] == request.headers['authorization'].split(' ')[1]:
-    #
-    #             if AuthMiddleware.__user_repository.get_by_id(auth['user_id']):
-    #                 g.user_id = get_jwt_identity()
-    #                 return f(*args, **kwargs)
-    #
-    #         return Service.response_invalid_login()
-    #     return decorated_function
+    @staticmethod
+    def check_admin():
+        def decoration(f):
+            @wraps(f)
+            def decoration_function(*args, **kwargs):
+                if not g.admin:
+                    return AuthMiddleware.response_invalid_login(msg_eng='forbidden resource',
+                                                                 msg_rus='запрещенный ресурс',
+                                                                 msg_arm='արգելված ռեսուրս')
+                return f(*args, **kwargs)
+            return decoration_function
+        return decoration
 

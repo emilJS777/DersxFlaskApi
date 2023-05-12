@@ -43,6 +43,7 @@ class AuthService(Service, Repository):
         return self.response_ok({
             'id': g.user.id,
             'name': g.user.name,
+            'admin': g.user.admin,
             'first_name': g.user.first_name,
             'last_name': g.user.last_name,
             'region': g.user.region,

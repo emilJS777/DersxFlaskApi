@@ -5,7 +5,7 @@ from .UserModel import User
 class IUserRepo(ABC):
 
     @abstractmethod
-    def create(self, body: dict):
+    def create(self, body: dict, admin: bool = False):
         pass
 
     @abstractmethod
@@ -35,6 +35,10 @@ class IUserRepo(ABC):
 
     @abstractmethod
     def get_all_by_ids(self, user_ids: list[int]) -> list[User]:
+        pass
+
+    @abstractmethod
+    def get_count(self) -> int:
         pass
 
 

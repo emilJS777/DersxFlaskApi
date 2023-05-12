@@ -26,8 +26,11 @@ class UserService(Service, Repository):
             return self.response_conflict(msg_rus='адрес эл. почты существует в системе',
                                           msg_arm='էլ. փոստը գոյություն ունի համակարգում',
                                           msg_eng='email address mail exists in the system')
+        if self._user_repository.get_count() == 0 :
+            user = self._user_repository.create(body=body, admin=True)
+        else:
+            user = self._user_repository.create(body=body)
 
-        user = self._user_repository.create(body=body)
         self.email_repository.create(user_id=user.id, body=body)
         return self.response_created(msg_rus='пользователь создан',
                                      msg_eng='user created',

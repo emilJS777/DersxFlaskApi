@@ -11,6 +11,7 @@ class User(Model, db.Model):
     last_name = db.Column(db.String(60), nullable=False)
     date_birth = db.Column(db.Date(), nullable=False)
     region = db.Column(db.String(60), nullable=False)
+    admin = db.Column(db.Boolean, default=False)
 
     email = relationship("Email", uselist=False)
 

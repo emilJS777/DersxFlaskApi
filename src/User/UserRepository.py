@@ -1,5 +1,4 @@
 from sqlalchemy import or_, not_
-from ..GroupInvite.GroupInviteModel import GroupInvite
 from src.__Parents.Repository import Repository
 from .IUserRepo import IUserRepo
 from .UserModel import User
@@ -7,14 +6,16 @@ from flask_bcrypt import generate_password_hash
 from src.Skill.SkillModel import Skill
 from src.Category.CategoryModel import Category
 from ..Group.GroupModel import Group
+from src import db
 
 
 class UserRepository(Repository, IUserRepo):
     user: User = User
 
-    def create(self, body: dict) -> User:
+    def create(self, body: dict, admin: bool = False) -> User:
         user = self.user()
         user.name = body['name']
+        user.admin = admin
         user.password_hash = generate_password_hash(body['password'])
         user.first_name = body['first_name'].title()
         user.last_name = body['last_name'].title()
@@ -91,5 +92,9 @@ class UserRepository(Repository, IUserRepo):
     def get_all_by_ids(self, user_ids: list[int]) -> list[User]:
         users: list[User] = User.query.filter(User.id.in_(user_ids)).all()
         return users
+
+    def get_count(self) -> int:
+        users_count = db.session.query(User).count()
+        return users_count
 
 
