@@ -17,14 +17,16 @@ class AuthService(Service, Repository):
         user = self.__user_repository.get_by_name(body['name'])
 
         if not user or not check_password_hash(user.password_hash, body['password']):
-            return self.response_invalid_login()
+            return self.response_invalid_login(msg_rus='Неверное имя пользователя и / или пароль',
+                                               msg_arm='անվավեր օգտանուն և/կամ գաղտնաբառ',
+                                               msg_eng='invalid username and/or password')
 
         auth = self.__auth_repository.generate_tokens(user.id)
         return self.response_ok(auth)
 
     def logout(self) -> dict:
         self.__auth_repository.delete_by_user_id(g.user_id)
-        return self.response_deleted('выход из аккаунта прошла успешно')
+        return self.response_deleted(msg_rus='', msg_eng='', msg_arm='')
 
     def refresh(self) -> dict:
         auth = self.__auth_repository.get_by_user_id(user_id=get_jwt_identity())
@@ -33,7 +35,9 @@ class AuthService(Service, Repository):
             auth = self.__auth_repository.generate_tokens(get_jwt_identity())
             self.response_ok(auth)
 
-        return self.response_invalid_login()
+        return self.response_invalid_login(msg_rus='Неверное имя пользователя и / или пароль',
+                                           msg_arm='անվավեր օգտանուն և/կամ գաղտնաբառ',
+                                           msg_eng='invalid username and/or password')
 
     def get_profile(self) -> dict:
         return self.response_ok({

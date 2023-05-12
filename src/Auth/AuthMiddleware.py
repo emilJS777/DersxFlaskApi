@@ -28,7 +28,9 @@ class AuthMiddleware(Service):
                     g.user = auth.user
                     g.user_id = decode['user_id']
                     return f(*args, **kwargs)
-            return AuthMiddleware.response_invalid_login()
+            return AuthMiddleware.response_invalid_login(msg_rus='Неверное имя пользователя и / или пароль',
+                                                         msg_arm='անվավեր օգտանուն և/կամ գաղտնաբառ',
+                                                         msg_eng='invalid username and/or password')
 
         return decorated_function
 

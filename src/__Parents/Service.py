@@ -100,5 +100,11 @@ class Service:
         return Service.response(True, {'msg': msg or 'successfully deleted'}, 200)
 
     @staticmethod
-    def response_invalid_login():
-        return Service.response(False, {'msg': 'invalid username and/or password'}, 401)
+    def response_invalid_login(msg_eng: str, msg_arm: str, msg_rus: str):
+        if request.headers.get('lang') == 'arm':
+            msg = msg_arm
+        elif request.headers.get('lang') == 'eng':
+            msg = msg_eng
+        else:
+            msg = msg_rus
+        return Service.response(False, {'msg': msg or 'invalid username and/or password'}, 401)
