@@ -1,10 +1,8 @@
-import os
 from src import app
 from .IImageRepo import IImageRepo
 from ..__Parents.Service import Service
 from flask import g
-from datetime import datetime
-from flask import send_file, send_from_directory, make_response
+from flask import send_file
 
 
 class ImageService(Service):
@@ -40,8 +38,5 @@ class ImageService(Service):
         return send_file('../'+app.config["IMAGE_UPLOADS"]+'/'+filename,
                          mimetype=None,
                          as_attachment=False,
-                         attachment_filename=None,
-                         add_etags=True,
-                         cache_timeout=None,
                          conditional=False)
         # return send_file(app.config["IMAGE_UPLOADS"]+'/'+filename, mimetype="image/jpeg")
