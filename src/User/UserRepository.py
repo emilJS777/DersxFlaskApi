@@ -76,7 +76,7 @@ class UserRepository(Repository, IUserRepo):
         return user
 
     def get_by_name_or_email(self, name_or_email: str):
-        user = self.user.join(User.email).filter(or_(User.name == name_or_email, Email.address == name_or_email)).first()
+        user = self.user.query.join(User.email).filter(or_(User.name == name_or_email, Email.address == name_or_email)).first()
         return user
 
     def get_by_name_exclude_id(self, user_id: int, name: str) -> dict:
