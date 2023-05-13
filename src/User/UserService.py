@@ -10,6 +10,7 @@ from ..__Parents.Service import Service
 
 
 class UserService(Service, Repository):
+
     def __init__(self, user_repository: IUserRepo, email_repository: IEmailRepo, email_sender: IEmailSender):
         self._user_repository: IUserRepo = user_repository
         self.email_repository: IEmailRepo = email_repository

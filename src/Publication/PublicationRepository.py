@@ -2,9 +2,12 @@ from .IPublicationRepo import IPublicationRepo
 from .PublicationModel import Publication
 from src.PublicationLike.PublicationLikeModel import PublicationLike
 from flask import g
+from src import app
+from cachetools import cached, TTLCache
 
 
 class PublicationRepository(IPublicationRepo):
+    cache = TTLCache(maxsize=app.config['CACHE_SIZE'], ttl=app.config['CACHE_TTL'])
 
     def create(self, body: dict) -> Publication:
         publication: Publication = Publication()
@@ -24,6 +27,7 @@ class PublicationRepository(IPublicationRepo):
         publication: Publication = Publication.query.filter_by(id=publication_id).first()
         return publication
 
+    @cached(cache)
     def get_all(self, limit: int, offset: int, creator_id: int or None = None, liked_id: int or None = None) -> list[Publication]:
         publications: list[Publication] = Publication.query\
             .order_by(-Publication.creation_date) \

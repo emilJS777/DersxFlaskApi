@@ -8,9 +8,12 @@ from src.Category.CategoryModel import Category
 from ..Email.EmailModel import Email
 from ..Group.GroupModel import Group
 from src import db
+from cachetools import cached, TTLCache
+from src import app
 
 
 class UserRepository(Repository, IUserRepo):
+    cache = TTLCache(maxsize=app.config['CACHE_SIZE'], ttl=app.config['CACHE_TTL'])
     user: User = User
 
     def create(self, body: dict, admin: bool = False) -> User:
@@ -83,6 +86,7 @@ class UserRepository(Repository, IUserRepo):
         user = self.user.query.filter(self.user.id != user_id, self.user.name == name).first()
         return self.get_dict_items(user)
 
+    @cached(cache)
     def get_all(self, page: int, per_page: int, rubric_id: int or None, role_id: int or None, category_ids: list[int] or None,
                 search: str or None, group_id: int or None, not_group_id: int or None) -> dict:
         users = self.user.query\

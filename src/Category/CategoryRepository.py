@@ -1,8 +1,11 @@
 from .ICategoryRepo import ICategoryRepo
 from .CategoryModel import Category
+from cachetools import cached, TTLCache
+from src import app
 
 
 class CategoryRepository(ICategoryRepo):
+    cache = TTLCache(maxsize=app.config['CACHE_SIZE'], ttl=app.config['CACHE_TTL'])
 
     def create(self, body: dict):
         category = Category()
@@ -29,6 +32,7 @@ class CategoryRepository(ICategoryRepo):
         category: Category = Category.query.filter_by(id=category_id).first()
         return category
 
+    @cached(cache)
     def get_all(self, rubric_id: int or None = None, ids: list[int] or None = None) -> list[Category]:
         category: list[Category] = Category.query.filter(Category.id.in_(ids) if ids is not None else Category.id.isnot(None),
                                                          Category.rubric_id == rubric_id if rubric_id else Category.id.isnot(None)).all()

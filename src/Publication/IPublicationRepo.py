@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 from .PublicationModel import Publication
 
-
 class IPublicationRepo(ABC):
     @abstractmethod
     def create(self, body: dict) -> Publication:

@@ -4,9 +4,13 @@ from .VacancyModel import Vacancy, VacancyCategory
 from flask import g
 from ..__Parents.Repository import Repository
 from src.Category.CategoryModel import Category
+from cachetools import cached, TTLCache
+from src import app
 
 
 class VacancyRepository(IVacancyRepo, Repository):
+    cache = TTLCache(maxsize=app.config['CACHE_SIZE'], ttl=app.config['CACHE_TTL'])
+
     def create(self, body: dict, categories: list):
         vacancy: Vacancy = Vacancy()
         vacancy.title = body['title']
@@ -37,6 +41,7 @@ class VacancyRepository(IVacancyRepo, Repository):
         vacancy: Vacancy = Vacancy.query.filter_by(id=vacancy_id).first()
         return vacancy
 
+    @cached(cache)
     def get_all(self, page: int, per_page: int, exclude_id: int or None, search: str or None, rubric_id: int or None, creator_id: int or None,
                 payment_interval_ids: list[int], category_ids: list, price_start: float, price_end: float):
         vacancies = Vacancy.query\

@@ -1,11 +1,10 @@
-from sqlalchemy import desc
-
 from .IVacancyCommentRepo import  IVacancyCommentRepo
 from .VacancyCommentModel import VacancyComment
 from flask import g
 
 
 class VacancyCommentRepository(IVacancyCommentRepo):
+
     def create(self, body: dict):
         vacancy_comment: VacancyComment = VacancyComment()
         vacancy_comment.text = body['text']

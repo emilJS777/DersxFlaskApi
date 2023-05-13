@@ -1,8 +1,11 @@
 from src.Rubric.IRubricRepo import IRubricRepo
 from .RubricModel import Rubric
+from cachetools import cached, TTLCache
+from src import app
 
 
 class RubricRepository(IRubricRepo):
+    cache = TTLCache(maxsize=app.config['CACHE_SIZE'], ttl=app.config['CACHE_TTL'])
 
     def create(self, body: dict):
         rubric = Rubric()
@@ -28,6 +31,7 @@ class RubricRepository(IRubricRepo):
         rubric: Rubric = Rubric.query.filter_by(id=rubric_id).first()
         return rubric
 
+    @cached(cache)
     def get_all(self, rubric_ids: list[int] = None) -> list[Rubric]:
         rubric: list[Rubric] = Rubric.query.filter(Rubric.id.in_(rubric_ids) if rubric_ids is not None else Rubric.id.isnot(None)).all()
         return rubric

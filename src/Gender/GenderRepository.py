@@ -1,8 +1,11 @@
 from .IGenderRepo import IGenderRepo
 from .GenderModel import Gender
+from cachetools import cached, TTLCache
+from src import app
 
 
 class GenderRepository(IGenderRepo):
+    cache = TTLCache(maxsize=app.config['CACHE_SIZE'], ttl=app.config['CACHE_TTL'])
 
     def create(self, body: dict):
         gender: Gender = Gender()
@@ -26,6 +29,7 @@ class GenderRepository(IGenderRepo):
         gender: Gender = Gender.query.filter_by(id=gender_id).first()
         return gender
 
+    @cached(cache)
     def get_all(self) -> list[Gender]:
         genders: list[Gender] = Gender.query.all()
         return genders

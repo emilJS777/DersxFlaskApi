@@ -31,6 +31,7 @@ class GenderService(Service, Repository):
             return self.response_not_found(msg_rus='', msg_eng='', msg_arm='')
         return self.response_ok(self.get_dict_items(gender))
 
+
     def get_all(self) -> dict:
         genders = self.gender_repository.get_all()
         return self.response_ok(self.get_array_items(genders))

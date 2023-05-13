@@ -1,8 +1,11 @@
 from .IPaymentIntervalRepo import IPaymentIntervalRepo
 from .PaymentIntervalModel import PaymentInterval
+from cachetools import cached, TTLCache
+from src import app
 
 
 class PaymentIntervalRepository(IPaymentIntervalRepo):
+    cache = TTLCache(maxsize=app.config['CACHE_SIZE'], ttl=app.config['CACHE_TTL'])
 
     def create(self, body: dict):
         payment_interval: PaymentInterval = PaymentInterval()
@@ -32,6 +35,7 @@ class PaymentIntervalRepository(IPaymentIntervalRepo):
         payment_interval: PaymentInterval = PaymentInterval.query.filter_by(id=payment_interval_id).first()
         return payment_interval
 
+    @cached(cache)
     def get_all(self) -> list[PaymentInterval]:
         payment_intervals: list[PaymentInterval] = PaymentInterval.query.all()
         return payment_intervals
