@@ -5,6 +5,7 @@ from .UserModel import User
 from flask_bcrypt import generate_password_hash
 from src.Skill.SkillModel import Skill
 from src.Category.CategoryModel import Category
+from ..Email.EmailModel import Email
 from ..Group.GroupModel import Group
 from src import db
 
@@ -75,7 +76,7 @@ class UserRepository(Repository, IUserRepo):
         return user
 
     def get_by_name_or_email(self, name_or_email: str):
-        user = self.user.query.filter(or_(User.name == name_or_email, User.email.address == name_or_email)).first()
+        user = self.query.join(User.email).filter(or_(User.name == name_or_email, Email.address == name_or_email)).first()
         return user
 
     def get_by_name_exclude_id(self, user_id: int, name: str) -> dict:
