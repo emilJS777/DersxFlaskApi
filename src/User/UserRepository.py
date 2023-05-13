@@ -74,6 +74,10 @@ class UserRepository(Repository, IUserRepo):
         user = self.user.query.filter_by(name=name).first()
         return user
 
+    def get_by_name_or_email(self, name_or_email: str):
+        user = self.user.query.filter(or_(User.name == name_or_email, User.email.address == name_or_email)).first()
+        return user
+
     def get_by_name_exclude_id(self, user_id: int, name: str) -> dict:
         user = self.user.query.filter(self.user.id != user_id, self.user.name == name).first()
         return self.get_dict_items(user)

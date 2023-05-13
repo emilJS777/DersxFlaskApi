@@ -14,7 +14,7 @@ class AuthService(Service, Repository):
         self.__user_repository = user_repository
 
     def login(self, body: dict) -> dict:
-        user = self.__user_repository.get_by_name(body['name'])
+        user = self.__user_repository.get_by_name_or_email(body['name'])
 
         if not user or not check_password_hash(user.password_hash, body['password']):
             return self.response_invalid_login(msg_rus='Неверное имя пользователя и / или пароль',

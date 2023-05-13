@@ -25,6 +25,10 @@ class IUserRepo(ABC):
         pass
 
     @abstractmethod
+    def get_by_name_or_email(self, name_or_email: str):
+        pass
+
+    @abstractmethod
     def get_by_name_exclude_id(self, user_id: int, name: str):
         pass
 
