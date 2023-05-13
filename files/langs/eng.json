@@ -334,8 +334,8 @@
     "next": "next"
   },
   "guest": {
-    "title": "Freelance web platform",
-    "description": "This Freelance online exchange is a place where you can add vacancies, offer your services, search for IT specialists and vacancies. Here you can expose your work experience, show your skills and abilities, and also engage in your publications. profile and become part of an actively growing network of freelancers on our platform!",
+    "title": "Welcome to our web platform",
+    "description": "where you can find the right contractor for your projects or find an interesting job for yourself. Our site offers a user-friendly interface for posting vacancies and job offers, and also allows you to add your skills, experience and qualifications in order to attract potential employers or customers. On our platform, you can also connect with other members, share your posts, and get feedback from the community. Join our actively growing network of professionals and find what you are looking for on our website!",
     "user_name_or_email": "username or email address",
     "password": {
       "title": "password",
