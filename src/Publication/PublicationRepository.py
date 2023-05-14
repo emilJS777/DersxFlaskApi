@@ -32,6 +32,6 @@ class PublicationRepository(IPublicationRepo):
             .filter(Publication.creator_id == creator_id if creator_id else Publication.id.isnot(None)) \
             .where(Publication.likes.any(PublicationLike.user_id.in_([liked_id])) if liked_id else Publication.id.isnot(None)) \
             .join(Publication.complaints) \
-            .filter(Complaint.user_id != g.user_id) \
+            .filter(Complaint.user_id != g.user_id).distinct() \
             .limit(limit).offset(offset).all()
         return publications
