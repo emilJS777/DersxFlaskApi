@@ -49,7 +49,8 @@ class VacancyRepository(IVacancyRepo, Repository):
             .filter(Vacancy.creator_id == creator_id if creator_id else Vacancy.creator_id.isnot(None))\
             .where(Vacancy.categories.any(Category.id.in_(category_ids)) if category_ids else Vacancy.id.isnot(None))\
             .filter(Vacancy.payment_interval_id.in_(payment_interval_ids) if payment_interval_ids else Vacancy.id.isnot(None)) \
-            .where(Vacancy.complaints.any(Complaint.user_id != g.user_id)) \
+            .join(Vacancy.complaints) \
+            .filter(Complaint.user_id != g.user_id) \
             .order_by(-Vacancy.creation_date)\
             .paginate(page=page, per_page=per_page)
         return vacancies
