@@ -5,7 +5,7 @@ from .ComplaintModel import Complaint
 
 class IComplaintRepo(ABC):
     @abstractmethod
-    def create(self, body: dict):
+    def create(self, body: dict) -> Complaint:
         pass
 
     @abstractmethod

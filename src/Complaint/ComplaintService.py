@@ -9,12 +9,12 @@ class ComplaintService(Service, Repository):
         self.complaint_repository: IComplaintRepo = complaint_repository
 
     def create(self, body: dict) -> dict:
-        self.complaint_repository.create(body=body)
-        return self.response_created()
+        complaint = self.complaint_repository.create(body=body)
+        return self.response_created(obj_id=complaint.id)
 
     def delete(self, complaint_id: int) -> dict:
         complaint = self.complaint_repository.get_by_id(complaint_id)
-        if not complaint or complaint.user_id != g.user_id:
+        if not complaint or complaint.user_id != g.user.id:
             return self.response_not_found()
         self.complaint_repository.delete(complaint)
         return self.response_deleted()

@@ -13,6 +13,7 @@
     "sign_up": "sign up",
 
     "complaint": "complaint",
+    "complaint_cancel": "cancel complaint",
     "publish": "publish",
     "edit": "edit",
     "delete": "delete",

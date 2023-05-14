@@ -4,12 +4,13 @@ from .ComplaintModel import Complaint
 
 
 class ComplaintRepository(IComplaintRepo):
-    def create(self, body: dict):
+    def create(self, body: dict) -> Complaint:
         complaint: Complaint = Complaint()
         complaint.user_id = g.user_id
         complaint.publication_id = body.get('publication_id')
         complaint.vacancy_id = body.get('vacancy_id')
         complaint.save_db()
+        return complaint
         
     def delete(self, complaint: Complaint):
         complaint.delete_db()
