@@ -3,7 +3,8 @@ from .PublicationModel import Publication
 from src.PublicationLike.PublicationLikeModel import PublicationLike
 from flask import g
 from src.Complaint.ComplaintModel import Complaint
-
+from sqlalchemy import not_
+from sqlalchemy.orm import join
 
 class PublicationRepository(IPublicationRepo):
 
@@ -31,7 +32,6 @@ class PublicationRepository(IPublicationRepo):
             .order_by(-Publication.creation_date) \
             .filter(Publication.creator_id == creator_id if creator_id else Publication.id.isnot(None)) \
             .where(Publication.likes.any(PublicationLike.user_id.in_([liked_id])) if liked_id else Publication.id.isnot(None)) \
-            .join(Publication.complaints) \
-            .filter(Complaint.user_id != g.user_id).distinct() \
+            .filter(~Publication.complaints.any(Complaint.user_id == g.user_id)) \
             .limit(limit).offset(offset).all()
         return publications
