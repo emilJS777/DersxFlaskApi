@@ -11,6 +11,7 @@ class Publication(db.Model, Model):
 
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     creator = relationship("User")
+    complaints = relationship("Complaint")
 
     comments = relationship("PublicationComment")
     likes = relationship("PublicationLike")

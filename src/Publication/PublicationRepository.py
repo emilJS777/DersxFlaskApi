@@ -2,6 +2,7 @@ from .IPublicationRepo import IPublicationRepo
 from .PublicationModel import Publication
 from src.PublicationLike.PublicationLikeModel import PublicationLike
 from flask import g
+from src.Complaint.ComplaintModel import Complaint
 
 
 class PublicationRepository(IPublicationRepo):
@@ -18,6 +19,7 @@ class PublicationRepository(IPublicationRepo):
         publication.update_db()
 
     def delete(self, publication: Publication):
+        publication.complaints = []
         publication.delete_db()
 
     def get_by_id(self, publication_id: int) -> Publication:
@@ -29,5 +31,6 @@ class PublicationRepository(IPublicationRepo):
             .order_by(-Publication.creation_date) \
             .filter(Publication.creator_id == creator_id if creator_id else Publication.id.isnot(None)) \
             .where(Publication.likes.any(PublicationLike.user_id.in_([liked_id])) if liked_id else Publication.id.isnot(None)) \
+            .where(Publication.complaints.any(Complaint.user_id != g.user_id)) \
             .limit(limit).offset(offset).all()
         return publications

@@ -17,6 +17,7 @@ class Vacancy(db.Model, Model):
     rubric_id = db.Column(db.Integer, db.ForeignKey('rubric.id'))
     rubric = relationship("Rubric")
     categories = relationship("Category", secondary="vacancy_category")
+    complaints = relationship("Complaint")
 
     payment_interval_id = db.Column(db.Integer, db.ForeignKey('payment_interval.id'))
     payment_interval = relationship("PaymentInterval")

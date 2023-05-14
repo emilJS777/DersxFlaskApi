@@ -2,6 +2,8 @@ from sqlalchemy import or_, desc
 from .IVacancyRepo import IVacancyRepo
 from .VacancyModel import Vacancy, VacancyCategory
 from flask import g
+
+from ..Complaint.ComplaintModel import Complaint
 from ..__Parents.Repository import Repository
 from src.Category.CategoryModel import Category
 
@@ -31,7 +33,7 @@ class VacancyRepository(IVacancyRepo, Repository):
         vacancy.update_db()
 
     def delete(self, vacancy: Vacancy):
-        VacancyCategory.query.filter_by(vacancy_id=vacancy.id).delete()
+        vacancy.complaints = []
         vacancy.delete_db()
 
     def get_by_id(self, vacancy_id: int) -> Vacancy:
@@ -46,7 +48,8 @@ class VacancyRepository(IVacancyRepo, Repository):
             .filter(Vacancy.rubric_id == rubric_id if rubric_id else Vacancy.id.isnot(None))\
             .filter(Vacancy.creator_id == creator_id if creator_id else Vacancy.creator_id.isnot(None))\
             .where(Vacancy.categories.any(Category.id.in_(category_ids)) if category_ids else Vacancy.id.isnot(None))\
-            .filter(Vacancy.payment_interval_id.in_(payment_interval_ids) if payment_interval_ids else Vacancy.id.isnot(None))\
+            .filter(Vacancy.payment_interval_id.in_(payment_interval_ids) if payment_interval_ids else Vacancy.id.isnot(None)) \
+            .where(Vacancy.complaints.any(Complaint.user_id != g.user_id)) \
             .order_by(-Vacancy.creation_date)\
             .paginate(page=page, per_page=per_page)
         return vacancies

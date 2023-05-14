@@ -60,7 +60,3 @@ with app.app_context():
     # FRONT
     app.config['FRONT_LINK'] = 'http://185.218.124.120:80'
 
-    # CACHE CONFIG
-    app.config['CACHE_SIZE'] = 50
-    app.config['CACHE_TTL'] = 10
-

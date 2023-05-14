@@ -42,7 +42,7 @@ class Service:
 
     # RESPONSES
     @staticmethod
-    def response_conflict(msg_eng: str, msg_arm: str, msg_rus: str):
+    def response_conflict(msg_eng: str = None, msg_arm: str = None, msg_rus: str = None):
         if request.headers.get('lang') == 'arm':
             msg = msg_arm
         elif request.headers.get('lang') == 'eng':
@@ -52,7 +52,7 @@ class Service:
         return Service.response(False, {'msg': msg or 'exist'}, 409)
 
     @staticmethod
-    def response_not_found(msg_eng: str, msg_arm: str, msg_rus: str):
+    def response_not_found(msg_eng: str = None, msg_arm: str = None, msg_rus: str = None):
         if request.headers.get('lang') == 'arm':
             msg = msg_arm
         elif request.headers.get('lang') == 'eng':
@@ -66,7 +66,7 @@ class Service:
         return Service.response(False, {'msg': 'incorrect password'}, 403)
 
     @staticmethod
-    def response_created(msg_eng: str, msg_arm: str, msg_rus: str, obj_id: int = None):
+    def response_created(msg_eng: str = None, msg_arm: str = None, msg_rus: str = None, obj_id: int = None):
         if request.headers.get('lang') == 'arm':
             msg = msg_arm
         elif request.headers.get('lang') == 'eng':
@@ -76,7 +76,7 @@ class Service:
         return Service.response(True, {'msg': msg or 'successfully created', 'id': obj_id}, 201)
 
     @staticmethod
-    def response_updated(msg_eng: str, msg_arm: str, msg_rus: str):
+    def response_updated(msg_eng: str = None, msg_arm: str = None, msg_rus: str = None):
         if request.headers.get('lang') == 'arm':
             msg = msg_arm
         elif request.headers.get('lang') == 'eng':
@@ -90,7 +90,7 @@ class Service:
         return Service.response(True, obj, 200)
 
     @staticmethod
-    def response_deleted(msg_eng: str, msg_arm: str, msg_rus: str):
+    def response_deleted(msg_eng: str = None, msg_arm: str = None, msg_rus: str = None):
         if request.headers.get('lang') == 'arm':
             msg = msg_arm
         elif request.headers.get('lang') == 'eng':
@@ -100,7 +100,7 @@ class Service:
         return Service.response(True, {'msg': msg or 'successfully deleted'}, 200)
 
     @staticmethod
-    def response_invalid_login(msg_eng: str, msg_arm: str, msg_rus: str):
+    def response_invalid_login(msg_eng: str = None, msg_arm: str = None, msg_rus: str = None):
         if request.headers.get('lang') == 'arm':
             msg = msg_arm
         elif request.headers.get('lang') == 'eng':
