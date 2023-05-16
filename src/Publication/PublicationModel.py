@@ -2,7 +2,6 @@ from sqlalchemy import func
 from sqlalchemy.orm import relationship
 from src import db
 from src.__Parents.Model import Model
-from datetime import datetime
 
 
 class Publication(db.Model, Model):
