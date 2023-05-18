@@ -54,11 +54,13 @@ class PublicationService(Service, Repository):
             'description': publication.description,
             'image': self.get_dict_items(publication.image) if publication.image else None,
             'creation_date': publication.creation_date,
+            'comment_count': len(publication.comments),
+            'like_count': len(publication.likes),
             'creator': {
                 'id': publication.creator.id,
+                'name': publication.creator.name,
                 'first_name': publication.creator.first_name,
                 'last_name': publication.creator.last_name,
-                'name': publication.creator.name,
                 'image': self.get_dict_items(publication.creator.image) if publication.creator.image else None
             }
         })
