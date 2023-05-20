@@ -116,11 +116,11 @@
         },
         "short_description": {
           "title": "shoet description",
-          "description": "This field is intended for the description of the vacancy which will be visible in the search page. 50 to 600 characters"
+          "description": "This field is intended for the description of the vacancy which will be visible in the search page. 20 to 600 characters"
         },
         "long_description": {
           "title": "long description",
-          "description": "This field contains a full job description. try to describe what difficulties the performer may have to face (if any). 50 to 4000 characters"
+          "description": "This field contains a full job description. try to describe what difficulties the performer may have to face (if any). 20 to 4000 characters"
         },
         "rubric": {
           "description": "select field of activity"

@@ -1,7 +1,7 @@
 create_restore_password_schema = {
     "type": "object",
     "properties": {
-        "address": {"type": "string", "minLength": 6, "maxLength": 120},
+        "address": {"type": "string", "maxLength": 120},
       },
     "required": []
 }

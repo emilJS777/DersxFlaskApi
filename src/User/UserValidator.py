@@ -17,9 +17,9 @@ user_create_schema = {
 user_update_schema = {
     "type": "object",
     "properties": {
-        "name": {"type": "string", "maxLength": 60},
-        "first_name": {"type": "string", "maxLength": 60},
-        "last_name": {"type": "string", "maxLength": 60},
+        "name": {"type": "string", "minLength": 3, "maxLength": 60},
+        "first_name": {"type": "string", "minLength": 3, "maxLength": 60},
+        "last_name": {"type": "string", "minLength": 3, "maxLength": 60},
         "date_birth": {"type": "string"},
         "region": {"type": "string", "maxLength": 60},
         "email_address": {"type": "string", "maxLength": 120},

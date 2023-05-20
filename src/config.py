@@ -58,5 +58,5 @@ with app.app_context():
     mail = Mail(app)
 
     # FRONT
-    app.config['FRONT_LINK'] = 'http://185.218.124.120:80'
+    app.config['FRONT_LINK'] = 'skillx.am'
 
