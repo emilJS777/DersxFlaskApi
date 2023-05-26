@@ -17,7 +17,7 @@ class NotificationRepository(INotificationRepo):
         notification.friend_id = friend_id
         notification.vacancy_offer_id = vacancy_offer_id
         notification.group_invite_id = group_invite_id
-
+        notification.publication_comment = publication_comment_id
         notification.save_db()
 
         self.socket_io.send(
