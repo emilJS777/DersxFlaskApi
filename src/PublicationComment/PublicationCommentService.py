@@ -12,7 +12,8 @@ class PublicationCommentService(Service):
 
     def create(self, body: dict) -> dict:
         publication_comment = self.publication_comment_repository.create(body)
-        self.notification_repository.create(publication_comment_id=publication_comment.id, user_id=publication_comment.publication.creator_id)
+        if not publication_comment.publication.creator_id == g.user_id:
+            self.notification_repository.create(publication_comment_id=publication_comment.id, user_id=publication_comment.publication.creator_id)
         return self.response_created(msg_arm='комментария успешно создано',
                                      msg_eng='comment successfully created',
                                      msg_rus='մեկնաբանությունը հաջողությամբ ստեղծվեց')
