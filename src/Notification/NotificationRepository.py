@@ -9,7 +9,7 @@ class NotificationRepository(INotificationRepo):
     def __init__(self, socket_io: ISocketio):
         self.socket_io: ISocketio = socket_io
 
-    def create(self, user_id: int, friend_id: int = None, vacancy_offer_id: int = None, group_invite_id: int = None) -> Notification:
+    def create(self, user_id: int, friend_id: int = None, vacancy_offer_id: int = None, group_invite_id: int = None, publication_comment_id: int = None) -> Notification:
         notification: Notification = Notification()
         notification.creator_id = g.user_id
         notification.user_id = user_id
@@ -17,6 +17,7 @@ class NotificationRepository(INotificationRepo):
         notification.friend_id = friend_id
         notification.vacancy_offer_id = vacancy_offer_id
         notification.group_invite_id = group_invite_id
+
         notification.save_db()
 
         self.socket_io.send(
@@ -39,8 +40,7 @@ class NotificationRepository(INotificationRepo):
             self.socket_io.send(
                 emit_name="delete_notification_id",
                 data={"notification_id": notification.id},
-                user_id=notification.user_id
-            )
+                user_id=notification.user_id)
         except:
             return True
 

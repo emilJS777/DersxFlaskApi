@@ -186,6 +186,7 @@
   "notifications": {
     "no_notifications": "у вас нет уведомлений",
     "job_posting": "отклик на вакансию",
+    "publication_comment": "у вас комментарий к публикации",
     "friend": {
       "friend_request": "запрос в друзья",
       "accepted": "теперь вы друзья"

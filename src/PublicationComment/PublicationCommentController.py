@@ -1,13 +1,15 @@
 from .PublicationCommentService import PublicationCommentService
 from .PublicationCommentRepository import PublicationCommentRepository
+from ..Socketio.Socketio import Socketio
 from ..__Parents.Controller import Controller
 from src.Auth.AuthMiddleware import AuthMiddleware
 from flask_expects_json import expects_json
 from .PublicationCommentValidator import publication_comment_schema
+from ..Notification.NotificationRepository import NotificationRepository
 
 
 class PublicationCommentController(Controller):
-    publication_comment_service: PublicationCommentService = PublicationCommentService(PublicationCommentRepository())
+    publication_comment_service: PublicationCommentService = PublicationCommentService(PublicationCommentRepository(), NotificationRepository(Socketio()))
 
     @expects_json(publication_comment_schema)
     @AuthMiddleware.check_authorize

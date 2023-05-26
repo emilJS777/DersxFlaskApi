@@ -27,6 +27,7 @@ class NotificationService(Service, Repository):
             'vacancy_offer_id': notification.vacancy_offer_id,
             'vacancy_offer': self.get_dict_items(notification.vacancy_offer) if notification.vacancy_offer_id else None,
             'friend': self.get_dict_items(notification.friend) if notification.friend else None,
+            'publication_comment': self.get_dict_items(notification.publication_comment) if notification.publication_comment else None,
             'group_invite': {
                 'id': notification.group_invite.id,
                 'group': self.get_dict_items(notification.group_invite.group)

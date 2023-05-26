@@ -186,6 +186,7 @@
   "notifications": {
     "no_notifications": "դուք ծանուցումներ չունեք",
     "job_posting": "աշխատանքի դիմում",
+    "publication_comment": "դուք ունեք հրապարակման մեկնաբանություն",
     "friend": {
       "friend_request": "ընկերանալու հայտ",
       "accepted": "այժմ դուք ընկերներ եք"

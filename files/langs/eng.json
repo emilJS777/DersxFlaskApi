@@ -183,6 +183,7 @@
   "notifications": {
     "no_notifications": "you don't have notifications",
     "job_posting": "job posting",
+    "publication_comment": "you have a post comment",
     "friend": {
       "friend_request": "friend request",
       "accepted": "now you are friends"

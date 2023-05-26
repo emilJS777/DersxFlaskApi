@@ -1,15 +1,18 @@
 from .IPublicationCommentRepo import IPublicationCommentRepo
+from ..Notification.INotificationRepo import INotificationRepo
 from ..__Parents.Service import Service
 from flask import g
 
 
 class PublicationCommentService(Service):
 
-    def __init__(self, publication_comment_repository: IPublicationCommentRepo):
+    def __init__(self, publication_comment_repository: IPublicationCommentRepo, notification_repository: INotificationRepo):
         self.publication_comment_repository: IPublicationCommentRepo = publication_comment_repository
+        self.notification_repository: INotificationRepo = notification_repository
 
     def create(self, body: dict) -> dict:
-        self.publication_comment_repository.create(body)
+        publication_comment = self.publication_comment_repository.create(body)
+        self.notification_repository.create(publication_comment_id=publication_comment.id, user_id=publication_comment.creator_id)
         return self.response_created(msg_arm='комментария успешно создано',
                                      msg_eng='comment successfully created',
                                      msg_rus='մեկնաբանությունը հաջողությամբ ստեղծվեց')

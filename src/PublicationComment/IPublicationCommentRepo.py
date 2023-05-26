@@ -4,7 +4,7 @@ from .PublicationCommentModel import PublicationComment
 
 class IPublicationCommentRepo(ABC):
     @abstractmethod
-    def create(self, body: dict):
+    def create(self, body: dict) -> PublicationComment:
         pass
 
     @abstractmethod

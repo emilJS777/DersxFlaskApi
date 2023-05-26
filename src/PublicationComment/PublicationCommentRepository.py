@@ -4,12 +4,13 @@ from flask import g
 
 
 class PublicationCommentRepository(IPublicationCommentRepo):
-    def create(self, body: dict):
+    def create(self, body: dict) -> PublicationComment:
         publication_comment: PublicationComment = PublicationComment()
         publication_comment.publication_id = body['publication_id']
         publication_comment.creator_id = g.user_id
         publication_comment.text = body['text']
         publication_comment.save_db()
+        return publication_comment
 
     def update(self, publication_comment: PublicationComment, body: dict):
         publication_comment.text = body['text']
