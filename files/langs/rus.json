@@ -111,7 +111,7 @@
 
     "create": {
       "title": "новая вакансия",
-      "description": "desc rip tion",
+      "description": "",
       "form": {
         "title": {
           "title": "название",

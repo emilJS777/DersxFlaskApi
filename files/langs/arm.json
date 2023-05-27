@@ -111,7 +111,7 @@
 
     "create": {
       "title": "նոր աշխատատեղ",
-      "description": "desc rip tion",
+      "description": "",
       "form": {
         "title": {
           "title": "անվանում",

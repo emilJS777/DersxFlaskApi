@@ -108,7 +108,7 @@
     },
     "create": {
       "title": "new vacancy",
-      "description": "desc rip tion",
+      "description": "",
       "form": {
         "title": {
           "title": "title",
