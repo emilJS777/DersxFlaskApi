@@ -154,9 +154,13 @@
         "title": "price for the service",
         "placeholder": "max 1.000.000"
       },
+      "resume": {
+        "title": "Upload cv",
+        "sub_title": "file in .pdf format"
+      },
       "description": {
         "title": "describe the offer",
-        "description": "no less than 50 and no more than 2500 characters",
+        "description": "no more than 2500 characters",
         "placeholder": "describe your skills and abilities, try to describe why the customer should choose you..."
       },
       "confirm_create": "do you want to post an offer ?",

@@ -46,6 +46,7 @@ with app.app_context():
     app.config["SERVICE_IMAGE_UPLOADS"] = 'files/service_images'
     app.config["PUBLICATION_IMAGE_UPLOADS"] = 'files/publication_images'
     app.config["IMAGE_UPLOADS"] = 'files/images'
+    app.config["FILE_UPLOADS"] = 'files/files'
     app.config["LANGS"] = 'files/langs'
 
     # MAIL CONFIG

@@ -34,6 +34,7 @@ from .Email.EmailController import EmailController
 from .RestorePassword.RestorePasswordController import RestorePasswordController
 from .Lang.LangController import LangController
 from .Complaint.ComplaintController import ComplaintController
+from .File.FileController import FileController
 
 api.add_resource(AuthController, "/auth")
 api.add_resource(UserController, "/user")
@@ -70,3 +71,4 @@ api.add_resource(EmailController, "/email")
 api.add_resource(RestorePasswordController, "/restore_password")
 api.add_resource(LangController, "/lang")
 api.add_resource(ComplaintController, "/complaint")
+api.add_resource(FileController, "/file")

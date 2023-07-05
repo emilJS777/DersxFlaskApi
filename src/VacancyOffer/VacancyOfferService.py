@@ -2,15 +2,16 @@ from src.__Parents.Repository import Repository
 from src.__Parents.Service import Service
 from .IVacancyOfferRepo import IVacancyOfferRepo
 from flask import g
+from ..File.IFileRepo import IFileRepo
 from ..Notification.INotificationRepo import INotificationRepo
 from ..Socketio.ISocketio import ISocketio
 
 
 class VacancyOfferService(Service, Repository):
-
-    def __init__(self, vacancy_offer_repository: IVacancyOfferRepo, notification_repository: INotificationRepo):
+    def __init__(self, vacancy_offer_repository: IVacancyOfferRepo, notification_repository: INotificationRepo, file_repository: IFileRepo):
         self.vacancy_offer_repository: IVacancyOfferRepo = vacancy_offer_repository
         self.notification_repository: INotificationRepo = notification_repository
+        self.file_repository: IFileRepo = file_repository
 
     def create(self, body: dict) -> dict:
         if self.vacancy_offer_repository.get_by_vacancy_id_creator_id(vacancy_id=body['vacancy_id'], creator_id=g.user_id):
@@ -20,9 +21,7 @@ class VacancyOfferService(Service, Repository):
         vacancy_offer = self.vacancy_offer_repository.create(body)
         # NOTIFICATION
         self.notification_repository.create(user_id=vacancy_offer.vacancy.creator_id, vacancy_offer_id=vacancy_offer.id)
-        return self.response_created(msg_rus='предложение успешно создано',
-                                     msg_arm='առաջարկը հաջողությամբ ստեղծվեց',
-                                     msg_eng='offer successfully created')
+        return self.response_ok({"id": vacancy_offer.id})
 
     def update(self, vacancy_offer_id: int, body: dict) -> dict:
         vacancy_offer = self.vacancy_offer_repository.get_by_id(vacancy_offer_id)
@@ -37,11 +36,12 @@ class VacancyOfferService(Service, Repository):
 
     def delete(self, vacancy_offer_id: int) -> dict:
         vacancy_offer = self.vacancy_offer_repository.get_by_id(vacancy_offer_id)
-        if not vacancy_offer or not vacancy_offer.creator_id == g.user_id:
+        if not vacancy_offer or not vacancy_offer.vacancy.creator_id == g.user_id:
             return self.response_not_found(msg_rus='предложение не найдено',
                                            msg_eng='offer not found',
                                            msg_arm='առաջարկը չի գտնվել')
         self.vacancy_offer_repository.delete(vacancy_offer)
+        self.file_repository.delete(file=vacancy_offer.file)
         return self.response_deleted(msg_rus='предложение успешно удалено',
                                      msg_arm='առաջարկը հաջողությամբ ջնջվեց',
                                      msg_eng='offer successfully deleted')
@@ -57,7 +57,11 @@ class VacancyOfferService(Service, Repository):
             'description': vacancy_offer.description,
             'payment_interval': self.get_dict_items(vacancy_offer.payment_interval),
             'price': vacancy_offer.price,
-            'vacancy_id': vacancy_offer.vacancy_id
+            'vacancy_id': vacancy_offer.vacancy_id,
+            'file': {
+                'id': vacancy_offer.file.id,
+                'filename': vacancy_offer.file.filename,
+            } if vacancy_offer.file else None
         })
 
     def get_all(self, page: int, per_page: int, vacancy_id: int) -> dict:
@@ -73,6 +77,10 @@ class VacancyOfferService(Service, Repository):
                                      'payment_interval': self.get_dict_items(vacancy_offer.payment_interval),
                                      'creator_id': vacancy_offer.creator_id,
                                      'creation_date': vacancy_offer.creation_date,
+                                     'file': {
+                                         'id': vacancy_offer.file.id,
+                                         'filename': vacancy_offer.file.filename,
+                                     } if vacancy_offer.file else None,
                                      'creator': {
                                         'id': vacancy_offer.creator.id,
                                         'name': vacancy_offer.creator.name,

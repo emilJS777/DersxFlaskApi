@@ -17,5 +17,7 @@ class VacancyOffer(db.Model, Model):
     vacancy_id = db.Column(db.Integer, db.ForeignKey("vacancy.id"))
     vacancy = relationship("Vacancy")
 
+    file = relationship("File", uselist=False)
+
     creator_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     creator = relationship("User")
